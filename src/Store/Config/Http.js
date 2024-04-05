@@ -8,9 +8,9 @@ const axiosInstance = Axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     // config.baseURL = process.env.REACT_APP_API;
-    const Ttoken = localStorage.getItem("Ttoken");
-    if (Ttoken ) {
-      config.headers.Authorization = Ttoken;
+    const Supertoken = localStorage.getItem("Supertoken");
+    if (Supertoken) {
+      config.headers.Authorization = Supertoken;
     }
     return config;
   },

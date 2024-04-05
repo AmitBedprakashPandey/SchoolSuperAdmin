@@ -10,6 +10,7 @@ import { Tag } from "primereact/tag";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSchool } from "../Store/Slice/SchoolSlice";
 import SchoolDasboard from "../Utility/SchoolDasboard";
+import { useNavigate } from "react-router-dom";
 export default function School({ data }) {
   const [selectSchool, setSelectSchool] = useState();
   const [visible, setVisible] = useState(false);
@@ -17,7 +18,12 @@ export default function School({ data }) {
   const [lable, setLable] = useState();
   const { School } = useSelector((state) => state.School);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(!localStorage.getItem("Supertoken")){
+    navigate("/login")
+    }
+  },[navigate])
   useEffect(() => {
     dispatch(getAllSchool());
   }, [dispatch]);
@@ -31,6 +37,7 @@ export default function School({ data }) {
   });
 
   const [statuses] = useState([true, false]);
+
   const statusItemTemplate = (option) => {
     return (
       <Tag
@@ -88,6 +95,7 @@ export default function School({ data }) {
       />
     </div>
   );
+  
   const footer = `In total there are ${School ? School.length : 0} Schools.`;
 
   return (

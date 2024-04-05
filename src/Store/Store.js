@@ -3,6 +3,8 @@ import SchoolSlice from "./Slice/SchoolSlice";
 import TeacherSlice from "./Slice/TeacherSlice";
 import ClassSlice from "./Slice/ClassSlice";
 import SectionSlice from "./Slice/SectionSlice";
+import TemplateSlice from "./Slice/TemplateSlice";
+import loginSlice from "./Slice/LoginSlice";
 
 export const Store = configureStore({
   reducer: {
@@ -10,5 +12,6 @@ export const Store = configureStore({
     Teacher: TeacherSlice,
     Class: ClassSlice,
     Section: SectionSlice,
+    Templete:TemplateSlice,
   },
 });

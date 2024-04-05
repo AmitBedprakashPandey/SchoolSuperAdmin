@@ -1,7 +1,12 @@
 import { Menubar } from "primereact/menubar";
 import { Avatar } from "primereact/avatar";
 import { Badge } from "primereact/badge";
+import {logout} from '../Store/Slice/LoginSlice';
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export default function Navbar(params) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const start = (
     <div className="flex items-center gap-2">
       <img
@@ -18,8 +23,8 @@ export default function Navbar(params) {
         image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
         shape="circle"
       />
-      <p>pandey@gmail.com</p>
-      <Badge severity={"info"} value={"Logout"} className="cursor-pointer hover:bg-cyan-600 duration-300"/>
+      <p>{localStorage.getItem("Superemail")}</p>
+      <Badge severity={"info"} value={"Logout"} onClick={()=>{dispatch(logout());navigate("/login")}} className="cursor-pointer hover:bg-cyan-600 duration-300"/>
     </div>
   );
   return (
