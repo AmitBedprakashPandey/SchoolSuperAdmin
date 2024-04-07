@@ -31,8 +31,8 @@ export const loginSlice = createSlice({
   },
   reducers: {
     logout: (state) => {
-      state.error = null;
-      state.user = null;
+      localStorage.removeItem("Superemail");
+      localStorage.removeItem("Supertoken");
     },
   },
   extraReducers: (builder) => {
@@ -54,6 +54,6 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { logout, setUser } = loginSlice.actions;
+export const { logout} = loginSlice.actions;
 
 export default loginSlice.reducer;

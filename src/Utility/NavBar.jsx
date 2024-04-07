@@ -1,7 +1,7 @@
 import { Menubar } from "primereact/menubar";
 import { Avatar } from "primereact/avatar";
 import { Badge } from "primereact/badge";
-import {logout} from '../Store/Slice/LoginSlice';
+import { logout } from "../Store/Slice/LoginSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 export default function Navbar(params) {
@@ -24,7 +24,15 @@ export default function Navbar(params) {
         shape="circle"
       />
       <p>{localStorage.getItem("Superemail")}</p>
-      <Badge severity={"info"} value={"Logout"} onClick={()=>{dispatch(logout());navigate("/login")}} className="cursor-pointer hover:bg-cyan-600 duration-300"/>
+      <Badge
+        severity={"info"}
+        value={"Logout"}
+        onClick={() => {
+          dispatch(logout());
+          navigate("/login");
+        }}
+        className="cursor-pointer hover:bg-cyan-600 duration-300"
+      />
     </div>
   );
   return (

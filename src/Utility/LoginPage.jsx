@@ -29,10 +29,11 @@ export default function LoginPage(params) {
     <>
       <Dialog maximized visible={true} showHeader={false}>
         <div className="grid h-full  place-content-center ">
-          <div className="grid grid-cols-1 place-content-center p-5  w-96">
-            <div className="text-center font-bold text-2xl">
-              <h1>Admin Login</h1>
+          <div className="grid grid-cols-1 place-content-center p-5 w-96">
+           <div className="text-center font-bold text-2xl">
+              <h1>Super Admin Login</h1>
             </div>
+            <form>
             <span className="p-float-label mt-7">
               <InputText
                 id="username"
@@ -57,10 +58,12 @@ export default function LoginPage(params) {
               <label htmlFor="username">Password</label>
             </span>
             <Button
+            type="button"
               label="Login"
               onClick={onLogin}
-              className="bg-cyan-500 text-white py-2 mt-7"
+              className=" w-full bg-cyan-500 text-white py-2 mt-7"
             />
+            </form>
           </div>
         </div>
       </Dialog>

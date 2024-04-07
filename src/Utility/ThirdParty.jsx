@@ -67,7 +67,7 @@ export default function ThirdParty({ data }) {
         ...formData,
         status: checked,
         auth: true,
-        user: data?._id,
+        schoolid: data?._id,
       })
     ).then((doc) => {
       if (doc.payload?.message) {

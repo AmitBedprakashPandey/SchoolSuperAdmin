@@ -4,12 +4,14 @@ import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   updateTeacher,
   createTeacher,
 } from "../Store/Slice/TeacherSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { AllSectionBySchoolStatus } from "../Store/Slice/SectionSlice";
+import { AllClassBySchoolStatus } from "../Store/Slice/ClassSlice";
 export default function TeacherForm({ label, data }) {
   const [formData, setFormData] = useState();
   const [checked, setChecked] = useState(false);
@@ -21,7 +23,10 @@ export default function TeacherForm({ label, data }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   useEffect(() => {
- 
+    dispatch(AllClassBySchoolStatus(data.schoolid));
+    dispatch(AllSectionBySchoolStatus(data.schoolid));
+  }, [data, dispatch]);
+  useLayoutEffect(() => {
     if (label === "u" && data) {
       const sch = Teacher.filter((item) => item?._id === data?._id);
       setFormData(sch[0]);
@@ -110,6 +115,7 @@ export default function TeacherForm({ label, data }) {
           />
           <label htmlFor="address">Address</label>
         </span>
+
         <span className="p-float-label mt-7">
           <InputNumber
             id="mobile"
@@ -117,7 +123,7 @@ export default function TeacherForm({ label, data }) {
             value={formData?.mobile}
             onChange={(e) => formHandler(e.originalEvent)}
             useGrouping={false}
-            className="w-full h-12 rounded-lg  border-gray-300 border"
+            className="w-full h-12 pl-3 rounded-lg  border-gray-300 border"
           />
           <label htmlFor="address">Enter Mobile</label>
         </span>

@@ -115,14 +115,15 @@ export default function SchoolForm({ label, data, close }) {
         </span>
         <div className="flex gap-2 mt-7">
           <span className="p-float-label w-full md:w-14rem">
-            <Dropdown
-              inputId="dd-state"
-              value={formData?.state}
-              onChange={formHandler}
-              options={cities}
-              name="state"
-              className="w-full border-gray-300 border"
-            />
+          <InputText
+            id="state"
+            useGrouping={false}
+            name="state"
+            inputClassName="pl-3 "
+            value={formData?.state}
+            onChange={formHandler}
+            className=" pl-3 outline-gray-300 outline outline-1 h-12 w-full rounded-md"
+          />
             <label htmlFor="dd-state">State</label>
           </span>
           <span className="p-float-label ">
