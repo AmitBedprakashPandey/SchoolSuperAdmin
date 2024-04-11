@@ -10,6 +10,7 @@ import { Tag } from "primereact/tag";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTeacherBySchool } from "../Store/Slice/TeacherSlice";
 import TeacherLogin from "../Utility/TeacherLoginUpdate";
+import TeacherForm from "./TeacherForm";
 export default function TeacherTab({ schoolid }) {
   const [selectSchool, setSelectSchool] = useState();
   const [visible, setVisible] = useState(false);
@@ -19,8 +20,8 @@ export default function TeacherTab({ schoolid }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllTeacherBySchool(schoolid));
-  }, [dispatch,schoolid]);
+    dispatch(getAllTeacherBySchool(schoolid?._id));
+  }, [dispatch, schoolid]);
 
   const [filters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -56,7 +57,8 @@ export default function TeacherTab({ schoolid }) {
 
       case false:
         return "danger";
-       default: return "NO Satus" 
+      default:
+        return "NO Satus";
     }
   };
 
@@ -88,23 +90,32 @@ export default function TeacherTab({ schoolid }) {
       />
     </div>
   );
-  const footer = `In total there are ${Teacher ? Teacher.length : 0} Schools.`;
+  const footer = `In total there are ${
+    Teacher ? Teacher.length : 0
+  }  Teacher's.`;
 
   return (
     <>
       <Dialog
-        header={"Create School"}
+        header={"Create Teacher"}
         visible={visible}
         onHide={() => setVisible(false)}
         style={{ width: "50vh" }}
       >
-        <SchoolForm label={lable} close={() => setVisible(false)} />
+        <TeacherForm
+          data={schoolid}
+          label={lable}
+          close={() => setVisible(false)}
+        />
       </Dialog>
 
       <Dialog
         header={selectSchool?.name + " Dashboard"}
         visible={visible2}
-        onHide={() => setVisible2(false)}
+        onHide={() => {
+          setSelectSchool();
+          setVisible2(false);
+        }}
         maximized
       >
         <TeacherLogin data={selectSchool} />

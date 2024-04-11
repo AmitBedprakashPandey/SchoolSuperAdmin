@@ -5,6 +5,8 @@ import {
   UpdateTemplate,
 } from "../Store/Slice/TemplateSlice";
 import { Toast } from "primereact/toast";
+import { Checkbox } from "primereact/checkbox";
+import { FileUpload } from "primereact/fileupload";
 import Compressor from "compressorjs";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -83,7 +85,7 @@ const ImageTest = ({ data }) => {
         status: checked,
         schoolid: data,
       })
-    )
+    );
   };
 
   const handleFileChange = async (event) => {
@@ -128,29 +130,13 @@ const ImageTest = ({ data }) => {
   return (
     <>
       <Toast ref={toast} />
-      {/* <span className="flex flex-col">
-        <label>Enter School Id</label>
-        <input
-          type="text"
-          name="schoolid"
-          value={formData?.tempimage}
-          onChange={formHandler}
-          className=""
-        ></input>
-      </span> */}
       <div dangerouslySetInnerHTML={{ __html: renderTemplate() }}></div>
-      <span className="flex flex-col">
-        <label>select Icard template</label>
-        <input
-          type="file"
-          name="tempimage"
-          value={formData?.tempimage}
-          onChange={handleFileChange}
-          className=""
-        ></input>
+      <span className="flex items-center gap-3">
+        <label className="capitalize font-medium">select Icard template</label>
+        <FileUpload mode="basic" onUpload={handleFileChange} accept="image/*" />
       </span>
-      <span className="flex flex-col">
-        <label>Paste Template</label>
+      <span className="flex flex-col gap-3">
+        <label className="capitalize font-medium">Paste Template</label>
         <textarea
           name="temp"
           value={template}
@@ -158,15 +144,15 @@ const ImageTest = ({ data }) => {
           className="border border-black h-32"
         ></textarea>
       </span>
-      <span className="flex items-center gap-3">
-        <input
+      <span className="flex items-center gap-3 my-3">
+        <Checkbox
           type="checkbox"
-          className="border border-black"
+          className="outline outline-1 rounded-md"
           name="status"
-          value={checked}
-          onChange={(e) => setChecked(e.target.checked)}
-        ></input>
-        <label>Paste Template</label>
+          onChange={(e) => setChecked(e.checked)}
+          checked={checked}
+        ></Checkbox>
+        <label className="capitalize font-medium">Paste Template</label>
       </span>
       <span className="flex flex-col">
         <button
@@ -175,15 +161,6 @@ const ImageTest = ({ data }) => {
         >
           Create
         </button>
-        {/* {formData?.temp && formData?.tempimage ? (
-          <button
-            onClick={onSave}
-            className="bg-cyan-500 text-white py-3 rounded-lg"
-          >
-            Create
-          </button>
-        ) : ( */}
-        {/* )} */}
       </span>
     </>
   );

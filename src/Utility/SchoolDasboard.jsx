@@ -26,7 +26,7 @@ export default function SchoolDasboard({ data }) {
           <SchoolForm label="u" data={data} />
         </TabPanel>
         <TabPanel header="Teacher">
-          <TeacherTab schoolid={data?._id} />
+          <TeacherTab schoolid={data} />
         </TabPanel>
         <TabPanel header="Third Party">
           <ThirdParty data={data} />

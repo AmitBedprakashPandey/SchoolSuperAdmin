@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
-import { FilterMatchMode  } from "primereact/api";
+import { FilterMatchMode } from "primereact/api";
 import SchoolForm from "../Utility/SchoolForm";
 import { DataTable } from "primereact/datatable";
 import { Dropdown } from "primereact/dropdown";
@@ -18,12 +18,12 @@ export default function School({ data }) {
   const [lable, setLable] = useState();
   const { School } = useSelector((state) => state.School);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  useEffect(()=>{
-    if(!localStorage.getItem("Supertoken")){
-    navigate("/login")
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("Supertoken")) {
+      navigate("/login");
     }
-  },[navigate])
+  }, [navigate]);
   useEffect(() => {
     dispatch(getAllSchool());
   }, [dispatch]);
@@ -63,7 +63,8 @@ export default function School({ data }) {
 
       case false:
         return "danger";
-        default : return "no status"
+      default:
+        return "no status";
     }
   };
 
@@ -95,7 +96,7 @@ export default function School({ data }) {
       />
     </div>
   );
-  
+
   const footer = `In total there are ${School ? School.length : 0} Schools.`;
 
   return (
@@ -112,7 +113,10 @@ export default function School({ data }) {
       <Dialog
         header={selectSchool?.name + " Dashboard"}
         visible={visible2}
-        onHide={() => setVisible2(false)}
+        onHide={() => {
+          setVisible2(false);
+          setSelectSchool();
+        }}
         maximized
       >
         <SchoolDasboard data={selectSchool} />

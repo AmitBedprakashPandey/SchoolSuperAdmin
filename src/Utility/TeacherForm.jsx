@@ -5,17 +5,14 @@ import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import {
-  updateTeacher,
-  createTeacher,
-} from "../Store/Slice/TeacherSlice";
+import { updateTeacher, createTeacher } from "../Store/Slice/TeacherSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AllSectionBySchoolStatus } from "../Store/Slice/SectionSlice";
 import { AllClassBySchoolStatus } from "../Store/Slice/ClassSlice";
 export default function TeacherForm({ label, data }) {
   const [formData, setFormData] = useState();
   const [checked, setChecked] = useState(false);
-  const { Teacher} = useSelector((state) => state.Teacher);
+  const { Teacher } = useSelector((state) => state.Teacher);
   const { Classs } = useSelector((state) => state.Class);
   const { Sections } = useSelector((state) => state.Section);
   const dispatch = useDispatch();
@@ -23,11 +20,16 @@ export default function TeacherForm({ label, data }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   useEffect(() => {
-    dispatch(AllClassBySchoolStatus(data.schoolid));
-    dispatch(AllSectionBySchoolStatus(data.schoolid));
+    if (label === "s") {
+
+      dispatch(AllClassBySchoolStatus(data._id || data.schoolid));
+      dispatch(AllSectionBySchoolStatus(data._id || data.schoolid));
+    }
   }, [data, dispatch]);
   useLayoutEffect(() => {
     if (label === "u" && data) {
+      dispatch(AllClassBySchoolStatus(data?.schoolid));
+      dispatch(AllSectionBySchoolStatus(data?.schoolid));
       const sch = Teacher.filter((item) => item?._id === data?._id);
       setFormData(sch[0]);
       setChecked(sch[0]?.status);
@@ -62,7 +64,7 @@ export default function TeacherForm({ label, data }) {
         school: data?.school,
       })
     ).then((doc) => {
-      if (doc.payload?.response?.status !==302) {        
+      if (doc.payload?.response?.status !== 302) {
         showSuccessToast(doc.payload?.message);
       }
       if (doc.payload.response?.data.error) {
@@ -123,7 +125,8 @@ export default function TeacherForm({ label, data }) {
             value={formData?.mobile}
             onChange={(e) => formHandler(e.originalEvent)}
             useGrouping={false}
-            className="w-full h-12 pl-3 rounded-lg  border-gray-300 border"
+            inputClassName="pl-2"
+            className="w-full h-12 rounded-lg  border-gray-300 border"
           />
           <label htmlFor="address">Enter Mobile</label>
         </span>
