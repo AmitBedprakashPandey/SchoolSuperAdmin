@@ -89,6 +89,7 @@ const ImageTest = ({ data }) => {
   };
 
   const handleFileChange = async (event) => {
+    console.log(event);
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -96,6 +97,7 @@ const ImageTest = ({ data }) => {
         const blob = await fetch(event.target.result).then((res) => res.blob());
         const compressedFile = await compressFile(blob);
         const base64 = await convertToBase64(compressedFile);
+        console.log(base64);
         setTemp("data:image/png;base64," + base64); // Prepend data URI prefix
       };
       reader.readAsDataURL(file);
@@ -133,7 +135,7 @@ const ImageTest = ({ data }) => {
       <div dangerouslySetInnerHTML={{ __html: renderTemplate() }}></div>
       <span className="flex items-center gap-3">
         <label className="capitalize font-medium">select Icard template</label>
-        <FileUpload mode="basic" onUpload={handleFileChange} accept="image/*" />
+        <input type="file" onChange={handleFileChange} accept="image/*" />
       </span>
       <span className="flex flex-col gap-3">
         <label className="capitalize font-medium">Paste Template</label>
