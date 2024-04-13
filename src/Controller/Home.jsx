@@ -3,6 +3,7 @@ import { PanelMenu } from "primereact/panelmenu";
 import { useEffect, useLayoutEffect } from "react";
 import { MdSchool } from "react-icons/md";
 import { Outlet, useNavigate } from "react-router-dom";
+import DeviceValidation from "../Utility/DeviceValidation";
 export default function Home(params) {
   const navigate = useNavigate();
   useEffect(() => {
@@ -21,6 +22,7 @@ export default function Home(params) {
   return (
     <>
       <Navbar />
+      <DeviceValidation/>
       <div className="flex gap-3 mt-14">
         <div className="h-full">
           <div className="w-72 h-[93vh] p-0  rounded-none shadow-gray-400 shadow">

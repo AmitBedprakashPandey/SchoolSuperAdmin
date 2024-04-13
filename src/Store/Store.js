@@ -6,6 +6,7 @@ import SectionSlice from "./Slice/SectionSlice";
 import TemplateSlice from "./Slice/TemplateSlice";
 import loginSlice from "./Slice/LoginSlice";
 import AdminLoginSlice from "./Slice/AdminLoginSlice";
+import LoginSlice from "./Slice/LoginSlice";
 
 export const Store = configureStore({
   reducer: {
@@ -15,5 +16,6 @@ export const Store = configureStore({
     Section: SectionSlice,
     Templete: TemplateSlice,
     SchoolAuth: AdminLoginSlice,
+    Login:LoginSlice
   },
 });

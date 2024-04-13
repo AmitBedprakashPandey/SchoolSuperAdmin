@@ -4,6 +4,7 @@ import { Badge } from "primereact/badge";
 import { logout } from "../Store/Slice/LoginSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import DeviceValidation from "./DeviceValidation";
 export default function Navbar(params) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,7 +29,8 @@ export default function Navbar(params) {
         severity={"info"}
         value={"Logout"}
         onClick={() => {
-          dispatch(logout());
+          localStorage.removeItem("Superemail");
+          localStorage.removeItem("Supertoken");
           navigate("/login");
         }}
         className="cursor-pointer hover:bg-cyan-600 duration-300"
@@ -36,10 +38,13 @@ export default function Navbar(params) {
     </div>
   );
   return (
-    <Menubar
-      start={start}
-      end={end}
-      className="fixed top-0 w-full px-10 py-2 shadow-gray-300 shadow"
-    />
+    <>
+      <DeviceValidation />
+      <Menubar
+        start={start}
+        end={end}
+        className="fixed top-0 w-full px-10 py-2 shadow-gray-300 shadow"
+      />
+    </>
   );
 }
