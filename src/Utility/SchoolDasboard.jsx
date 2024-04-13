@@ -17,8 +17,8 @@ import {
   SchoolAdminUpdate,
 } from "../Store/Slice/AdminLoginSlice";
 import { Toast } from "primereact/toast";
+import DeviceValidation from "./DeviceValidation";
 export default function SchoolDasboard({ data }) {
-
   return (
     <>
       <TabView>
@@ -123,7 +123,7 @@ const RegisterForm = ({ data }) => {
             disabled
             className="w-full border-gray-300 border px-2 py-3"
           />
-        </span>    
+        </span>
       </div>
       <span className="p-float-label mt-7">
         <InputText
@@ -136,19 +136,33 @@ const RegisterForm = ({ data }) => {
         <label htmlFor="username">Username</label>
       </span>
       {formData?.auth ? (
-        <span className="p-float-label mt-7 w-full">
-          <Password
-            id="username"
-            value={formData?.newpass}
-            name="newpass"
-            onChange={formHandler}
-            feedback={false}
-            toggleMask
-            inputClassName="w-full pl-3"
-            className="w-full border-gray-300 border  h-12 rounded-md"
-          />
-          <label htmlFor="username">Enter Password</label>
-        </span>
+        <>
+          <span className="p-float-label mt-7 w-full">
+            <InputText
+              id="username"
+              value={formData?.ogpass}
+              name="ogpass"
+              onChange={formHandler}
+              feedback={false}
+              disabled
+              className="w-full pl-2 border-gray-300 border  h-12 rounded-md"
+            />
+            <label htmlFor="username">Original Password</label>
+          </span>
+          <span className="p-float-label mt-7 w-full">
+            <Password
+              id="username"
+              value={formData?.newpass}
+              name="newpass"
+              onChange={formHandler}
+              feedback={false}
+              toggleMask
+              inputClassName="w-full pl-3"
+              className="w-full border-gray-300 border  h-12 rounded-md"
+            />
+            <label htmlFor="username">Enter Password</label>
+          </span>
+        </>
       ) : (
         <span className="p-float-label mt-7 w-full">
           <Password

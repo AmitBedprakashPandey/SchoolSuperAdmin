@@ -21,7 +21,7 @@ export default function TeacherLoginUpdate({ data }) {
   useEffect(() => {
     dispatch(AllClassBySchoolStatus(data?.school));
     dispatch(AllSectionBySchoolStatus(data?.school));
-  }, [data,dispatch]);
+  }, [data, dispatch]);
   return (
     <>
       <TabView>
@@ -60,7 +60,7 @@ const RegisterForm = ({ data }) => {
         setFormData(e.payload.data);
       });
     }
-  }, [dispatch,data]);
+  }, [dispatch, data]);
 
   const toast = useRef(null);
   const showSuccessToast = (message) => {
@@ -148,19 +148,33 @@ const RegisterForm = ({ data }) => {
         <label htmlFor="username">Username</label>
       </span>
       {formData?.auth ? (
-        <span className="p-float-label mt-7 w-full">
-          <Password
-            id="username"
-            value={formData?.newpass}
-            name="newpass"
-            onChange={formHandler}
-            feedback={false}
-            toggleMask
-            inputClassName="w-full pl-3"
-            className="w-full border-gray-300 border  h-12 rounded-md"
-          />
-          <label htmlFor="username">Enter Password</label>
-        </span>
+        <>
+          <span className="p-float-label mt-7 w-full">
+            <InputText
+              id="username"
+              value={formData?.ogpass}
+              name="ogpass"
+              onChange={formHandler}
+              feedback={false}
+disabled             
+              className="w-full pl-2 border-gray-300 border  h-12 rounded-md"
+            />
+            <label htmlFor="username">Enter Password</label>
+          </span>
+          <span className="p-float-label mt-7 w-full">
+            <Password
+              id="username"
+              value={formData?.newpass}
+              name="newpass"
+              onChange={formHandler}
+              feedback={false}
+              toggleMask
+              inputClassName="w-full pl-3"
+              className="w-full border-gray-300 border  h-12 rounded-md"
+            />
+            <label htmlFor="username">Enter Password</label>
+          </span>
+        </>
       ) : (
         <span className="p-float-label mt-7 w-full">
           <Password
