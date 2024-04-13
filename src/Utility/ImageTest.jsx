@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  AllTemplateBySchoolStatus,
+  AllTemplate,
   CreateTemplate,
   UpdateTemplate,
 } from "../Store/Slice/TemplateSlice";
@@ -19,6 +19,7 @@ const ImageTest = ({ data }) => {
   const [temp, setTemp] = useState();
   const dispatch = useDispatch();
   const toast = useRef();
+  const { Templates } = useSelector((state) => state.Templete);
   const formHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -28,8 +29,14 @@ const ImageTest = ({ data }) => {
       .then((response) => {
         setStudent(response.data[0]);
       });
+    dispatch(AllTemplate(data)).then((doc) => {
+      setTemplate(doc.payload[0]?.temp);
+      setFormData(doc.payload[0]);
+      setTemp(doc.payload[0]?.tempimage);
+      setChecked(doc.payload[0]?.status);
+    });
     renderTemplate();
-  }, [temp]);
+  }, [dispatch]);
 
   const showSuccessToast = (message) => {
     toast.current.show({
@@ -51,7 +58,7 @@ const ImageTest = ({ data }) => {
 
   // Replace placeholders in template with student data
   const renderTemplate = () => {
-    let modifiedTemplate = template;
+    let modifiedTemplate = template || "";
     modifiedTemplate = modifiedTemplate.replace("${name}", student?.name);
     modifiedTemplate = modifiedTemplate.replace("${class}", student?.class);
     modifiedTemplate = modifiedTemplate.replace(
@@ -74,7 +81,7 @@ const ImageTest = ({ data }) => {
         temp: template,
         schoolid: data,
       })
-    );
+    ).then((e) => showSuccessToast(e.payload?.message));
   };
 
   const onUpdate = () => {
@@ -85,11 +92,10 @@ const ImageTest = ({ data }) => {
         status: checked,
         schoolid: data,
       })
-    );
+    ).then((e) => showSuccessToast(e.payload?.message));
   };
 
   const handleFileChange = async (event) => {
-    console.log(event);
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -157,12 +163,21 @@ const ImageTest = ({ data }) => {
         <label className="capitalize font-medium">Paste Template</label>
       </span>
       <span className="flex flex-col">
-        <button
-          onClick={onSave}
-          className="bg-cyan-500 text-white py-3 rounded-lg"
-        >
-          Create
-        </button>
+        {!Templates[0] ? (
+          <button
+            onClick={onSave}
+            className="bg-cyan-500 text-white py-3 rounded-lg"
+          >
+            Create
+          </button>
+        ) : (
+          <button
+            onClick={onUpdate}
+            className="bg-cyan-500 text-white py-3 rounded-lg"
+          >
+            Update
+          </button>
+        )}
       </span>
     </>
   );
