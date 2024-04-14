@@ -90,6 +90,7 @@ const ImageTest = ({ data }) => {
         ...formData,
         tempimage: temp,
         status: checked,
+        temp: template,
         schoolid: data,
       })
     ).then((e) => showSuccessToast(e.payload?.message));
