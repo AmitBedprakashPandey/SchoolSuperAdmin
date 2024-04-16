@@ -35,8 +35,17 @@ const ImageTest = ({ data }) => {
       setTemp(doc.payload[0]?.tempimage);
       setChecked(doc.payload[0]?.status);
     });
-    renderTemplate();
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(AllTemplate(data)).then((doc) => {
+      setTemplate(doc.payload[0]?.temp);
+      setFormData(doc.payload[0]);
+      setTemp(doc.payload[0]?.tempimage);
+      setChecked(doc.payload[0]?.status);
+    });
+  }, [dispatch]);
+
 
   const showSuccessToast = (message) => {
     toast.current.show({

@@ -1,6 +1,7 @@
 import { Menubar } from "primereact/menubar";
 import { Avatar } from "primereact/avatar";
 import { Badge } from "primereact/badge";
+import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog";
 import { logout } from "../Store/Slice/LoginSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +19,28 @@ export default function Navbar(params) {
       <h1 className="font-semibold">Digital Branded School</h1>
     </div>
   );
+
+  const accept = () => {
+    localStorage.removeItem("Superemail");
+    localStorage.removeItem("Supertoken");
+    navigate("/login");
+  };
+
+  const reject = () => {};
+
+  const confirm1 = () => {
+    confirmDialog({
+      message: "Are you sure you want to Logout ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      acceptClassName: "bg-cyan-500 text-white px-5 py-2 ml-5",
+      rejectClassName: "border-2 border-cyan-500 px-5 py-2",
+      defaultFocus: "accept",
+      accept,
+      reject,
+    });
+  };
+  
   const end = (
     <div className="flex align-items-center items-center gap-2">
       <Avatar
@@ -28,17 +51,14 @@ export default function Navbar(params) {
       <Badge
         severity={"info"}
         value={"Logout"}
-        onClick={() => {
-          localStorage.removeItem("Superemail");
-          localStorage.removeItem("Supertoken");
-          navigate("/login");
-        }}
+        onClick={confirm1}
         className="cursor-pointer hover:bg-cyan-600 duration-300"
       />
     </div>
   );
   return (
     <>
+      <ConfirmDialog />
       <DeviceValidation />
       <Menubar
         start={start}
