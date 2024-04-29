@@ -46,8 +46,9 @@ export const createTeacher = createAsyncThunk(
 export const updateTeacher = createAsyncThunk(
   "Teacher/update",
   async (data, { rejectWithValue }) => {
+    console.log(data);
     try {
-      const res = await axios.put(`${url}/${data._id}/${data.school}`, data);
+      const res = await axios.put(`${url}/${data._id}/${data.schoolid}`, data);
       return res.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -94,6 +95,7 @@ export const Teacher = createSlice({
         state.loading = false;
       })
       .addCase(updateTeacher.fulfilled, (state, action) => {
+        console.log(action.payload);
         const index = state.Teacher.findIndex(
           (Teacher) => Teacher._id === action.payload.data._id
         );

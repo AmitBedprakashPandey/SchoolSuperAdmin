@@ -2,7 +2,6 @@ import { Button } from "primereact/button";
 import React, { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { FilterMatchMode } from "primereact/api";
-import SchoolForm from "../Utility/SchoolForm";
 import { DataTable } from "primereact/datatable";
 import { Dropdown } from "primereact/dropdown";
 import { Column } from "primereact/column";
@@ -32,6 +31,7 @@ export default function TeacherTab({ schoolid }) {
   });
 
   const [statuses] = useState([true, false]);
+
   const statusItemTemplate = (option) => {
     return (
       <Tag

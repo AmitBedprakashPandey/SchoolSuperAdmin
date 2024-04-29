@@ -19,22 +19,21 @@ export default function TeacherForm({ label, data }) {
   const formHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    if (label === "s") {
-
-      dispatch(AllClassBySchoolStatus(data._id || data.schoolid));
-      dispatch(AllSectionBySchoolStatus(data._id || data.schoolid));
-    }
-  }, [data, dispatch]);
   useLayoutEffect(() => {
+    dispatch(AllClassBySchoolStatus(data?.schoolid));
+    dispatch(AllSectionBySchoolStatus(data?.schoolid));
+  }, [data, dispatch]);
+
+  useEffect(() => {
     if (label === "u" && data) {
       dispatch(AllClassBySchoolStatus(data?.schoolid));
       dispatch(AllSectionBySchoolStatus(data?.schoolid));
+      console.log(data);
       const sch = Teacher.filter((item) => item?._id === data?._id);
       setFormData(sch[0]);
       setChecked(sch[0]?.status);
     }
-  }, [data, label, Teacher]);
+  }, [data, label, Teacher, dispatch]);
 
   const toast = useRef(null);
 

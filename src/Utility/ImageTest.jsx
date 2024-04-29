@@ -170,7 +170,7 @@ const ImageTest = ({ data }) => {
           onChange={(e) => setChecked(e.checked)}
           checked={checked}
         ></Checkbox>
-        <label className="capitalize font-medium">Paste Template</label>
+        <label className="capitalize font-medium">Active Template</label>
       </span>
       <span className="flex flex-col">
         {!Templates[0] ? (
