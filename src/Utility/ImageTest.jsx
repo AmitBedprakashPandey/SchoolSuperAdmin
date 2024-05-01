@@ -79,7 +79,6 @@ const ImageTest = ({ data }) => {
     modifiedTemplate = modifiedTemplate.replace("${mobile}", student?.mobile);
     modifiedTemplate = modifiedTemplate.replace("${address}", student?.address);
     modifiedTemplate = modifiedTemplate.replace("${PuchSheelIcard}", temp);
-    modifiedTemplate = modifiedTemplate.replace("${NO_IMAGE}", NO_IMAGE);
     return modifiedTemplate;
   };
 
