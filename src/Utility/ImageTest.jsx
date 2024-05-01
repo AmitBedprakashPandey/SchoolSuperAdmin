@@ -70,14 +70,16 @@ const ImageTest = ({ data }) => {
     let modifiedTemplate = template || "";
     modifiedTemplate = modifiedTemplate.replace("${name}", student?.name);
     modifiedTemplate = modifiedTemplate.replace("${class}", student?.class);
-    modifiedTemplate = modifiedTemplate.replace(
-      "${father_name}",
-      student?.father_name
-    );
+    modifiedTemplate = modifiedTemplate.replace("${father_name}",student?.father_name);
     modifiedTemplate = modifiedTemplate.replace("${dob}", student?.dob);
+    modifiedTemplate = modifiedTemplate.replace("${transport}",student?.transport);
+    modifiedTemplate = modifiedTemplate.replace("${mothername}",student?.mothername);
+    modifiedTemplate = modifiedTemplate.replace("${rollno}", student?.rollno);
+    modifiedTemplate = modifiedTemplate.replace("${remark}", student?.remark);
     modifiedTemplate = modifiedTemplate.replace("${mobile}", student?.mobile);
     modifiedTemplate = modifiedTemplate.replace("${address}", student?.address);
     modifiedTemplate = modifiedTemplate.replace("${PuchSheelIcard}", temp);
+    modifiedTemplate = modifiedTemplate.replace("${NO_IMAGE}", NO_IMAGE);
     return modifiedTemplate;
   };
 
