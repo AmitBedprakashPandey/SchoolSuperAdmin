@@ -25,7 +25,17 @@ export default function School({ data }) {
     }
   }, [navigate]);
   useEffect(() => {
-    dispatch(getAllSchool());
+    dispatch(getAllSchool()).then(
+      (doc) => {
+        if (doc.payload?.response?.status === 403) {
+          localStorage.removeItem("email");
+          localStorage.removeItem("Admintoken");
+          localStorage.removeItem("schoolid");
+          localStorage.removeItem("schoolName");
+          navigate("/login");
+        }
+      }
+    );;
   }, [dispatch]);
 
   const [filters] = useState({
