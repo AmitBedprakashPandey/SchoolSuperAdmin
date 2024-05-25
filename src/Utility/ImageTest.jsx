@@ -70,6 +70,8 @@ const ImageTest = ({ data }) => {
     let modifiedTemplate = template || "";
     modifiedTemplate = modifiedTemplate.replace("${name}", student?.name);
     modifiedTemplate = modifiedTemplate.replace("${class}", student?.class);
+    modifiedTemplate = modifiedTemplate.replace("${section}", student?.section);
+    modifiedTemplate = modifiedTemplate.replace("${admission_id}",student?.admission_id);
     modifiedTemplate = modifiedTemplate.replace("${father_name}",student?.father_name);
     modifiedTemplate = modifiedTemplate.replace("${admission_id}",student?.admission_id)
     modifiedTemplate = modifiedTemplate.replace("${dob}", student?.dob);
