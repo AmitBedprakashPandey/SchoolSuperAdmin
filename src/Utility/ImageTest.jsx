@@ -14,15 +14,14 @@ const ImageTest = ({ data }) => {
   const [formData, setFormData] = useState();
   const [checked, setChecked] = useState(false);
   const [template, setTemplate] = useState(``);
-  const [TemplateText, setTemplateText] = useState(``);
-  const [student, setStudent] = useState(``);
   const [temp, setTemp] = useState();
+  const [template2, setTemplate2] = useState(``);
+  const [temp2, setTemp2] = useState();
+  const [student, setStudent] = useState(``);
   const dispatch = useDispatch();
   const toast = useRef();
   const { Templates } = useSelector((state) => state.Templete);
-  const formHandler = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+ 
   useEffect(() => {
     axios
       .get("https://655302f75449cfda0f2dfe0f.mockapi.io/student")
@@ -31,8 +30,9 @@ const ImageTest = ({ data }) => {
       });
     dispatch(AllTemplate(data)).then((doc) => {
       setTemplate(doc.payload[0]?.temp);
-      setFormData(doc.payload[0]);
       setTemp(doc.payload[0]?.tempimage);
+      setTemplate2(doc.payload[0]?.temp2);
+      setTemp2(doc.payload[0]?.tempimage2);
       setChecked(doc.payload[0]?.status);
     });
   }, [dispatch]);
@@ -40,12 +40,13 @@ const ImageTest = ({ data }) => {
   useEffect(() => {
     dispatch(AllTemplate(data)).then((doc) => {
       setTemplate(doc.payload[0]?.temp);
-      setFormData(doc.payload[0]);
       setTemp(doc.payload[0]?.tempimage);
+      setTemplate2(doc.payload[0]?.temp2);
+      setTemp2(doc.payload[0]?.tempimage2);
+
       setChecked(doc.payload[0]?.status);
     });
   }, [dispatch]);
-
 
   const showSuccessToast = (message) => {
     toast.current.show({
@@ -56,14 +57,7 @@ const ImageTest = ({ data }) => {
     });
   };
 
-  const showErrorToast = (error) => {
-    toast.current.show({
-      severity: "info",
-      summary: "Error Message",
-      detail: error,
-      life: 3000,
-    });
-  };
+
 
   // Replace placeholders in template with student data
   const renderTemplate = () => {
@@ -71,12 +65,27 @@ const ImageTest = ({ data }) => {
     modifiedTemplate = modifiedTemplate.replace("${name}", student?.name);
     modifiedTemplate = modifiedTemplate.replace("${class}", student?.class);
     modifiedTemplate = modifiedTemplate.replace("${section}", student?.section);
-    modifiedTemplate = modifiedTemplate.replace("${admission_id}",student?.admission_id);
-    modifiedTemplate = modifiedTemplate.replace("${father_name}",student?.father_name);
-    modifiedTemplate = modifiedTemplate.replace("${admission_id}",student?.admission_id)
+    modifiedTemplate = modifiedTemplate.replace(
+      "${admission_id}",
+      student?.admission_id
+    );
+    modifiedTemplate = modifiedTemplate.replace(
+      "${father_name}",
+      student?.father_name
+    );
+    modifiedTemplate = modifiedTemplate.replace(
+      "${admission_id}",
+      student?.admission_id
+    );
     modifiedTemplate = modifiedTemplate.replace("${dob}", student?.dob);
-    modifiedTemplate = modifiedTemplate.replace("${transport}",student?.transport);
-    modifiedTemplate = modifiedTemplate.replace("${mothername}",student?.mothername);
+    modifiedTemplate = modifiedTemplate.replace(
+      "${transport}",
+      student?.transport
+    );
+    modifiedTemplate = modifiedTemplate.replace(
+      "${mothername}",
+      student?.mothername
+    );
     modifiedTemplate = modifiedTemplate.replace("${rollno}", student?.rollno);
     modifiedTemplate = modifiedTemplate.replace("${remark}", student?.remark);
     modifiedTemplate = modifiedTemplate.replace("${mobile}", student?.mobile);
@@ -85,13 +94,50 @@ const ImageTest = ({ data }) => {
     return modifiedTemplate;
   };
 
+  const renderTemplate2 = (data) => {
+    let modifiedTemplate = template2 || "" ;
+    modifiedTemplate = modifiedTemplate.replace("${PuchSheelIcard}", temp2);
+    modifiedTemplate = modifiedTemplate.replace(
+      "${fathername}",
+      student?.father_name
+    );
+    modifiedTemplate = modifiedTemplate.replace(
+      "${fatherimage}",
+      student?.fatherimage
+    );
+    modifiedTemplate = modifiedTemplate.replace(
+      "${mothername}",
+      student?.mothername
+    );
+    modifiedTemplate = modifiedTemplate.replace(
+      "${motherimage}",
+      student?.motherimage
+    );
+    modifiedTemplate = modifiedTemplate.replace(
+      "${guardianname}",
+      student?.guardianname
+    );
+    modifiedTemplate = modifiedTemplate.replace(
+      "${guardianimage}",
+      student?.guardianimage
+    );
+
+    modifiedTemplate = modifiedTemplate.replace(
+      "${mothername}",
+      student?.mothername
+    );
+    return modifiedTemplate;
+  };
+
   const onSave = () => {
     dispatch(
       CreateTemplate({
         ...formData,
         tempimage: temp,
+        tempimage2: temp2,
         status: checked,
         temp: template,
+        temp2: template2,
         schoolid: data,
       })
     ).then((e) => showSuccessToast(e.payload?.message));
@@ -102,8 +148,10 @@ const ImageTest = ({ data }) => {
       UpdateTemplate({
         ...formData,
         tempimage: temp,
+        tempimage2: temp2,
         status: checked,
         temp: template,
+        temp2: template2,
         schoolid: data,
       })
     ).then((e) => showSuccessToast(e.payload?.message));
@@ -117,8 +165,21 @@ const ImageTest = ({ data }) => {
         const blob = await fetch(event.target.result).then((res) => res.blob());
         const compressedFile = await compressFile(blob);
         const base64 = await convertToBase64(compressedFile);
-        console.log(base64);
         setTemp("data:image/png;base64," + base64); // Prepend data URI prefix
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleFileChange2 = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        const blob = await fetch(event.target.result).then((res) => res.blob());
+        const compressedFile = await compressFile(blob);
+        const base64 = await convertToBase64(compressedFile);
+        setTemp2("data:image/png;base64," + base64); // Prepend data URI prefix
       };
       reader.readAsDataURL(file);
     }
@@ -152,20 +213,46 @@ const ImageTest = ({ data }) => {
   return (
     <>
       <Toast ref={toast} />
-      <div dangerouslySetInnerHTML={{ __html: renderTemplate() }}></div>
-      <span className="flex items-center gap-3">
-        <label className="capitalize font-medium">select Icard template</label>
-        <input type="file" onChange={handleFileChange} accept="image/*" />
-      </span>
-      <span className="flex flex-col gap-3">
-        <label className="capitalize font-medium">Paste Template</label>
-        <textarea
-          name="temp"
-          value={template}
-          onChange={(e) => setTemplate(e.target.value)}
-          className="border border-black h-32"
-        ></textarea>
-      </span>
+      <div className="flex gap-3">
+        <div className="w-full">
+          <h1 className="py-2 font-bold">Front Side</h1>
+          <div dangerouslySetInnerHTML={{ __html: renderTemplate() }}></div>
+          <span className="flex items-center gap-3">
+            <label className="capitalize font-medium">
+              select Icard template
+            </label>
+            <input type="file" onChange={handleFileChange} accept="image/*" />
+          </span>
+          <span className="flex flex-col gap-3">
+            <label className="capitalize font-medium">Paste Template</label>
+            <textarea
+              name="temp"
+              value={template}
+              onChange={(e) => setTemplate(e.target.value)}
+              className="border border-black h-32"
+            ></textarea>
+          </span>
+        </div>
+        <div className="w-full">
+          <h1 className="py-2 font-bold">Back Side</h1>
+          <div dangerouslySetInnerHTML={{ __html: renderTemplate2() }}></div>
+          <span className="flex items-center gap-3">
+            <label className="capitalize font-medium">
+              select Icard template
+            </label>
+            <input type="file" onChange={handleFileChange2} accept="image/*" />
+          </span>
+          <span className="flex flex-col gap-3">
+            <label className="capitalize font-medium">Paste Template</label>
+            <textarea
+              name="temp2"
+              value={template2}
+              onChange={(e) => setTemplate2(e.target.value)}
+              className="border border-black h-32"
+            ></textarea>
+          </span>
+        </div>
+      </div>
       <span className="flex items-center gap-3 my-3">
         <Checkbox
           type="checkbox"

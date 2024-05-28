@@ -3,23 +3,25 @@ import SchoolForm from "./SchoolForm";
 import TeacherTab from "./TeacherTab";
 import ThirdParty from "./ThirdParty";
 import ImageTest from "./ImageTest";
+
+import { Calendar } from "primereact/calendar";
+import { FloatLabel } from "primereact/floatlabel";
+
 import { Password } from "primereact/password";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { useDispatch } from "react-redux";
-import { AllClassBySchoolStatus } from "../Store/Slice/ClassSlice";
-import { AllSectionBySchoolStatus } from "../Store/Slice/SectionSlice";
 import {
   SchoolAdminCreate,
   SchoolAdminFind,
   SchoolAdminUpdate,
 } from "../Store/Slice/AdminLoginSlice";
 import { Toast } from "primereact/toast";
-import DeviceValidation from "./DeviceValidation";
 export default function SchoolDasboard({ data }) {
   return (
+    
     <>
       <TabView>
         <TabPanel header="Update School">
@@ -35,7 +37,7 @@ export default function SchoolDasboard({ data }) {
           <ImageTest data={data?._id} />
         </TabPanel>
         <TabPanel header="School Admin">
-          <RegisterForm data={data} />
+          {/* <RegisterForm data={data} /> */}
         </TabPanel>
       </TabView>
     </>
@@ -45,6 +47,8 @@ export default function SchoolDasboard({ data }) {
 const RegisterForm = ({ data }) => {
   const [formData, setFormData] = useState();
   const [checked, setChecked] = useState(false);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const dispatch = useDispatch();
 
   const formHandler = (e) => {
@@ -53,16 +57,21 @@ const RegisterForm = ({ data }) => {
       [e.target.name]: e.target.value,
     });
   };
+
   useLayoutEffect(() => {
     if (data) {
       dispatch(SchoolAdminFind(data?._id)).then((e) => {
+        console.log(e.payload.data);
         setChecked(e.payload.data?.status);
+        setStartDate(e.payload.data?.startexpired)
+        setEndDate(e.payload.data?.expired)
         setFormData(e.payload.data);
       });
     }
   }, [dispatch, data]);
 
   const toast = useRef(null);
+
   const showSuccessToast = (message) => {
     toast.current.show({
       severity: "success",
@@ -80,8 +89,9 @@ const RegisterForm = ({ data }) => {
       life: 3000,
     });
   };
+
   const onChangeUserPassword = () => {
-    dispatch(SchoolAdminUpdate({ ...formData, status: checked })).then(
+    dispatch(SchoolAdminUpdate({ ...formData, status: checked,expired:endDate,startexpired:startDate })).then(
       (doc) => {
         if (doc.payload?.message) {
           showSuccessToast(doc.payload?.message);
@@ -92,6 +102,7 @@ const RegisterForm = ({ data }) => {
       }
     );
   };
+
   const onRegister = () => {
     dispatch(
       SchoolAdminCreate({
@@ -99,6 +110,8 @@ const RegisterForm = ({ data }) => {
         status: checked,
         auth: true,
         schoolid: data?._id,
+        expired:endDate,
+        startexpired:startDate
       })
     ).then((doc) => {
       if (doc.payload?.message) {
@@ -112,6 +125,7 @@ const RegisterForm = ({ data }) => {
 
   return (
     <>
+    
       <Toast ref={toast} />
       <div className="flex gap-3">
         <span className="p-float-label mt-7 w-full">
@@ -178,7 +192,35 @@ const RegisterForm = ({ data }) => {
           <label htmlFor="username">Enter Password</label>
         </span>
       )}
-
+      <div className=" flex gap-3 mt-7">
+        <span className="w-full">
+          <FloatLabel>
+            <Calendar
+              invalid="start_date"
+              value={startDate}
+              dateFormat="dd/mm/yy"
+              inputClassName="w-full pl-3"
+              onChange={(e) => setStartDate(e.value)}
+              className="w-full border-gray-300 border  h-12 rounded-md"
+              showIcon
+            />
+            <label htmlFor="start_date">Start Expired Date</label>
+          </FloatLabel>
+        </span>
+        <span className="w-full">
+          <FloatLabel>
+            <Calendar
+              invalid="end_date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.value)}
+              dateFormat="dd/mm/yy"
+              inputClassName="w-full pl-3"
+              className="w-full border-gray-300 border  h-12 rounded-md"
+            />
+            <label htmlFor="end_date">End Expired Date</label>
+          </FloatLabel>
+        </span>
+      </div>
       <span className="flex justify-center gap-3 mt-7">
         <Checkbox
           id="status"
