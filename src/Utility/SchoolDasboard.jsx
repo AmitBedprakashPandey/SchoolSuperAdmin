@@ -37,7 +37,7 @@ export default function SchoolDasboard({ data }) {
           <ImageTest data={data?._id} />
         </TabPanel>
         <TabPanel header="School Admin">
-          {/* <RegisterForm data={data} /> */}
+          <RegisterForm data={data} />
         </TabPanel>
       </TabView>
     </>
