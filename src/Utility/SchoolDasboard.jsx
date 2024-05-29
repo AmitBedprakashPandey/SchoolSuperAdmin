@@ -192,7 +192,7 @@ const RegisterForm = ({ data }) => {
           <label htmlFor="username">Enter Password</label>
         </span>
       )}
-      <div className=" flex gap-3 mt-7">
+      <div className=" flex gap-3 mt-7 hidden">
         <span className="w-full">
           <FloatLabel>
             <Calendar
