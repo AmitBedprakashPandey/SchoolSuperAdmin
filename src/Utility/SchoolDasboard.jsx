@@ -37,7 +37,7 @@ export default function SchoolDasboard({ data }) {
           <ImageTest data={data?._id} />
         </TabPanel>
         <TabPanel header="School Admin">
-          {/* <RegisterForm data={data} /> */}
+          <RegisterForm data={data} />
         </TabPanel>
       </TabView>
     </>
@@ -192,7 +192,7 @@ const RegisterForm = ({ data }) => {
           <label htmlFor="username">Enter Password</label>
         </span>
       )}
-      <div className=" flex gap-3 mt-7">
+      <div className=" flex gap-3 mt-7 hidden">
         <span className="w-full">
           <FloatLabel>
             <Calendar
