@@ -21,7 +21,7 @@ const ImageTest = ({ data }) => {
   const dispatch = useDispatch();
   const toast = useRef();
   const { Templates } = useSelector((state) => state.Templete);
- 
+
   useEffect(() => {
     axios
       .get("https://655302f75449cfda0f2dfe0f.mockapi.io/student")
@@ -29,6 +29,7 @@ const ImageTest = ({ data }) => {
         setStudent(response.data[0]);
       });
     dispatch(AllTemplate(data)).then((doc) => {
+      setFormData(doc.payload[0]);
       setTemplate(doc.payload[0]?.temp);
       setTemp(doc.payload[0]?.tempimage);
       setTemplate2(doc.payload[0]?.temp2);
@@ -39,6 +40,7 @@ const ImageTest = ({ data }) => {
 
   useEffect(() => {
     dispatch(AllTemplate(data)).then((doc) => {
+      setFormData(doc.payload[0]);
       setTemplate(doc.payload[0]?.temp);
       setTemp(doc.payload[0]?.tempimage);
       setTemplate2(doc.payload[0]?.temp2);
@@ -56,8 +58,6 @@ const ImageTest = ({ data }) => {
       life: 3000,
     });
   };
-
-
 
   // Replace placeholders in template with student data
   const renderTemplate = () => {
@@ -95,7 +95,7 @@ const ImageTest = ({ data }) => {
   };
 
   const renderTemplate2 = (data) => {
-    let modifiedTemplate = template2 || "" ;
+    let modifiedTemplate = template2 || "";
     modifiedTemplate = modifiedTemplate.replace("${PuchSheelIcard}", temp2);
     modifiedTemplate = modifiedTemplate.replace(
       "${fathername}",
