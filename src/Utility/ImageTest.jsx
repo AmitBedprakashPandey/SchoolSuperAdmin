@@ -104,6 +104,9 @@ const ImageTest = ({ data }) => {
     modifiedTemplate = modifiedTemplate.replace(
       "${fatherimage}",
       student?.fatherimage
+    );  modifiedTemplate = modifiedTemplate.replace(
+      "${admission_id}",
+      student?.admission_id
     );
     modifiedTemplate = modifiedTemplate.replace(
       "${mothername}",
