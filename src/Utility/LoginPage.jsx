@@ -57,7 +57,7 @@ export default function LoginPage() {
                   value={formData.email}
                   onChange={formHandler}
                   autoComplete="username"
-                  className="w-full h-11 p-2 border-gray-300 border"
+                  className="w-full h-12 p-2 border-gray-300 border"
                 />
                 <label htmlFor="username">Username</label>
               </span>
@@ -67,9 +67,9 @@ export default function LoginPage() {
                   name="pass"
                   value={formData.pass}
                   onChange={formHandler}
-                  inputClassName="pl-3 w-full"
+                  inputClassName="pl-3 w-full h-12 rounded-md border-gray-300 border"
                   autoComplete="current-password"
-                  className="w-full h-11 rounded-md border-gray-300 border"
+                  
                   toggleMask
                   feedback={false}
                 />
