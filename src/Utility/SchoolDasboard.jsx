@@ -21,7 +21,6 @@ import {
 import { Toast } from "primereact/toast";
 export default function SchoolDasboard({ data }) {
   return (
-    
     <>
       <TabView>
         <TabPanel header="Update School">
@@ -61,10 +60,9 @@ const RegisterForm = ({ data }) => {
   useLayoutEffect(() => {
     if (data) {
       dispatch(SchoolAdminFind(data?._id)).then((e) => {
-        console.log(e.payload.data);
         setChecked(e.payload.data?.status);
-        setStartDate(e.payload.data?.startexpired)
-        setEndDate(e.payload.data?.expired)
+        setStartDate(e.payload.data?.startexpired);
+        setEndDate(e.payload.data?.expired);
         setFormData(e.payload.data);
       });
     }
@@ -91,16 +89,27 @@ const RegisterForm = ({ data }) => {
   };
 
   const onChangeUserPassword = () => {
-    dispatch(SchoolAdminUpdate({ ...formData, status: checked,expired:endDate,startexpired:startDate })).then(
-      (doc) => {
-        if (doc.payload?.message) {
-          showSuccessToast(doc.payload?.message);
-        }
-        if (doc.payload?.error) {
-          showErrorToast(doc.payload?.error);
-        }
+    dispatch(
+      SchoolAdminUpdate({
+        ...formData,
+        status: checked,
+        expired: endDate,
+        startexpired: startDate,
+      })
+    ).then((doc) => {
+      if (doc.payload?.message) {
+        dispatch(SchoolAdminFind(data?._id)).then((e) => {
+          setChecked(e.payload.data?.status);
+          setStartDate(e.payload.data?.startexpired);
+          setEndDate(e.payload.data?.expired);
+          setFormData(e.payload.data);
+        });
+        showSuccessToast(doc.payload?.message);
       }
-    );
+      if (doc.payload?.error) {
+        showErrorToast(doc.payload?.error);
+      }
+    });
   };
 
   const onRegister = () => {
@@ -110,8 +119,8 @@ const RegisterForm = ({ data }) => {
         status: checked,
         auth: true,
         schoolid: data?._id,
-        expired:endDate,
-        startexpired:startDate
+        expired: endDate,
+        startexpired: startDate,
       })
     ).then((doc) => {
       if (doc.payload?.message) {
@@ -125,125 +134,128 @@ const RegisterForm = ({ data }) => {
 
   return (
     <>
-    
       <Toast ref={toast} />
-      <div className="flex gap-3">
-        <span className="p-float-label mt-7 w-full">
-          <InputText
-            id="username"
-            value={data?.name}
-            name="email"
-            onChange={formHandler}
-            disabled
-            className="w-full border-gray-300 border px-2 py-3"
-          />
-        </span>
-      </div>
-      <span className="p-float-label mt-7">
-        <InputText
-          id="username"
-          value={formData?.email}
-          name="email"
-          onChange={formHandler}
-          className="w-full border-gray-300 border px-2 py-3"
-        />
-        <label htmlFor="username">Username</label>
-      </span>
-      {formData?.auth ? (
-        <>
+      <div className="grid place-content-center">
+        <div className="flex gap-3 w-96">
           <span className="p-float-label mt-7 w-full">
             <InputText
               id="username"
-              value={formData?.ogpass}
-              name="ogpass"
+              value={data?.name}
+              name="email"
               onChange={formHandler}
-              feedback={false}
               disabled
-              className="w-full pl-2 border-gray-300 border  h-12 rounded-md"
+              className="w-full border-gray-300 border px-2 py-3"
             />
-            <label htmlFor="username">Original Password</label>
           </span>
+        </div>
+        <span className="p-float-label mt-7 w-96">
+          <InputText
+            id="username"
+            value={formData?.email}
+            name="email"
+            onChange={formHandler}
+            className="w-full border-gray-300 border px-2 py-3"
+          />
+          <label htmlFor="username">Username</label>
+        </span>
+        {formData?.auth ? (
+          <>
+            <span className="p-float-label mt-7 w-full">
+              <InputText
+                id="username"
+                value={formData?.ogpass}
+                name="ogpass"
+                onChange={formHandler}
+                feedback={false}
+                disabled
+                className="w-full pl-2 border-gray-300 border  h-12 rounded-md"
+              />
+              <label htmlFor="username">Original Password</label>
+            </span>
+            <span className="p-float-label mt-7">
+              <FloatLabel>
+                <Password
+                  id="username"
+                  value={formData?.newpass}
+                  name="newpass"
+                  onChange={formHandler}
+                  feedback={false}
+                  toggleMask
+                  inputClassName="pl-3 h-12 w-96"
+                  className="border-gray-300 border rounded-md"
+                />
+                <label htmlFor="username">Enter New Password</label>
+              </FloatLabel>
+            </span>
+          </>
+        ) : (
           <span className="p-float-label mt-7 w-full">
             <Password
               id="username"
-              value={formData?.newpass}
-              name="newpass"
+              value={formData?.pass}
+              name="pass"
               onChange={formHandler}
               feedback={false}
+              inputClassName="pl-3 h-12 w-96"
+              className="border-gray-300 border rounded-md"
               toggleMask
-              inputClassName="w-full pl-3"
-              className="w-full border-gray-300 border  h-12 rounded-md"
             />
             <label htmlFor="username">Enter Password</label>
           </span>
-        </>
-      ) : (
-        <span className="p-float-label mt-7 w-full">
-          <Password
-            id="username"
-            value={formData?.pass}
-            name="pass"
-            onChange={formHandler}
-            feedback={false}
-            inputClassName="w-full pl-3"
-            toggleMask
-            className="w-full border-gray-300 border  h-12 rounded-md"
+        )}
+        <div className=" flex gap-3 mt-7 hidden">
+          <span className="w-full">
+            <FloatLabel>
+              <Calendar
+                invalid="start_date"
+                value={startDate}
+                dateFormat="dd/mm/yy"
+                inputClassName="w-full pl-3"
+                onChange={(e) => setStartDate(e.value)}
+                className="w-full border-gray-300 border  h-12 rounded-md"
+                showIcon
+              />
+              <label htmlFor="start_date">Start Expired Date</label>
+            </FloatLabel>
+          </span>
+          <span className="w-full">
+            <FloatLabel>
+              <Calendar
+                invalid="end_date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.value)}
+                dateFormat="dd/mm/yy"
+                inputClassName="w-full pl-3"
+                className="w-full border-gray-300 border  h-12 rounded-md"
+              />
+              <label htmlFor="end_date">End Expired Date</label>
+            </FloatLabel>
+          </span>
+        </div>
+        <span className="flex justify-center gap-3 mt-7">
+          <Checkbox
+            id="status"
+            name="status"
+            className="outline-gray-300 outline outline-1 rounded-md"
+            onChange={(e) => setChecked(e.checked)}
+            checked={checked}
+          ></Checkbox>
+          <label htmlFor="address">Active</label>
+        </span>
+        {formData?.auth ? (
+          <Button
+            label="Update"
+            onClick={onChangeUserPassword}
+            className="mt-7 bg-cyan-500 w-full text-white p-3"
           />
-          <label htmlFor="username">Enter Password</label>
-        </span>
-      )}
-      <div className=" flex gap-3 mt-7 hidden">
-        <span className="w-full">
-          <FloatLabel>
-            <Calendar
-              invalid="start_date"
-              value={startDate}
-              dateFormat="dd/mm/yy"
-              inputClassName="w-full pl-3"
-              onChange={(e) => setStartDate(e.value)}
-              className="w-full border-gray-300 border  h-12 rounded-md"
-              showIcon
-            />
-            <label htmlFor="start_date">Start Expired Date</label>
-          </FloatLabel>
-        </span>
-        <span className="w-full">
-          <FloatLabel>
-            <Calendar
-              invalid="end_date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.value)}
-              dateFormat="dd/mm/yy"
-              inputClassName="w-full pl-3"
-              className="w-full border-gray-300 border  h-12 rounded-md"
-            />
-            <label htmlFor="end_date">End Expired Date</label>
-          </FloatLabel>
-        </span>
+        ) : (
+          <Button
+            label="Create"
+            onClick={onRegister}
+            className="mt-7 bg-cyan-500 w-full text-white p-3"
+          />
+        )}
       </div>
-      <span className="flex justify-center gap-3 mt-7">
-        <Checkbox
-          id="status"
-          name="status"
-          className="outline-gray-300 outline outline-1 rounded-md"
-          onChange={(e) => setChecked(e.checked)}
-          checked={checked}
-        ></Checkbox>
-        <label htmlFor="address">Active</label>
-      </span>
-      {formData?.auth ? (
-        <Button
-          label="Update"
-          onClick={onChangeUserPassword}
-          className="mt-7 bg-cyan-500 w-full text-white p-3"
-        />
-      ) : (
-        <Button
-          label="Create"
-          onClick={onRegister}
-          className="mt-7 bg-cyan-500 w-full text-white p-3"
-        />
-      )}
     </>
   );
 };

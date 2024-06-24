@@ -3,6 +3,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Message } from "primereact/message";
+import { FloatLabel } from "primereact/floatlabel";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../Store/Slice/LoginSlice";
 import { useEffect, useState } from "react";
@@ -35,17 +36,20 @@ export default function LoginPage() {
   return (
     <Dialog maximized visible={true} showHeader={false}>
       <DeviceValidation />
-      <div className="flex justify-center items-center w-full h-full">
-        <div className="flex items-center gap-5">
+      <div className="grid place-content-center w-full h-full">
+        <div className="flex items-center gap-5 mb-5">
           <div>
             <span className="flex gap-2 font-medium text-3xl">
-              Digital Branded<p className="text-blue-500 font-extrabold">School </p>
+              Digital Branded
+              <p className="text-blue-500 font-extrabold">School </p>
             </span>
           </div>
         </div>
-        <div className="bg-white absolute top-0 right-10 h-full flex items-center w-96">
+        <div className="bg-white">
           <div className="w-full">
-            {error && <Message severity="error" text={error} className="w-full" />}
+            {error && (
+              <Message severity="error" text={error} className="w-full" />
+            )}
             <div className="text-center font-bold text-2xl">
               <h1>Super Admin</h1>
             </div>
@@ -61,19 +65,21 @@ export default function LoginPage() {
                 />
                 <label htmlFor="username">Username</label>
               </span>
-              <span className="p-float-label mt-7">
-                <Password
-                  id="password"
-                  name="pass"
-                  value={formData.pass}
-                  onChange={formHandler}
-                  inputClassName="pl-3 w-full h-12 rounded-md border-gray-300 border"
-                  autoComplete="current-password"
-                  
-                  toggleMask
-                  feedback={false}
-                />
-                <label htmlFor="password">Password</label>
+              <span className="p-float-label mt-7 w-full">
+                <FloatLabel>
+                  <Password
+                    id="password"
+                    name="pass"
+                    value={formData.pass}
+                    onChange={formHandler}
+                    inputClassName="pl-3 h-12 w-96"
+                    autoComplete="current-password"
+                    className="w-full rounded-md border-gray-300 border"
+                    toggleMask
+                    feedback={false}
+                  />
+                  <label htmlFor="password">Password</label>
+                </FloatLabel>
               </span>
               <Button
                 type="submit"

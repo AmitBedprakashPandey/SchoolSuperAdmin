@@ -28,7 +28,6 @@ export default function TeacherForm({ label, data }) {
     if (label === "u" && data) {
       dispatch(AllClassBySchoolStatus(data?.schoolid));
       dispatch(AllSectionBySchoolStatus(data?.schoolid));
-      console.log(data);
       const sch = Teacher.filter((item) => item?._id === data?._id);
       setFormData(sch[0]);
       setChecked(sch[0]?.status);
