@@ -1,20 +1,21 @@
-import { TabPanel, TabView } from "primereact/tabview";
-import { BiDetail, BiGroup } from "react-icons/bi";
-import TeacherFrom from "./TeacherForm";
-import { Password } from "primereact/password";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { InputText } from "primereact/inputtext";
-import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
+import { Checkbox } from "primereact/checkbox";
+import { confirmDialog } from "primereact/confirmdialog";
+import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
+import { TabPanel, TabView } from "primereact/tabview";
+import { Toast } from "primereact/toast";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { BiDetail, BiGroup } from "react-icons/bi";
 import { useDispatch } from "react-redux";
+import { AllClassBySchoolStatus } from "../Store/Slice/ClassSlice";
+import { AllSectionBySchoolStatus } from "../Store/Slice/SectionSlice";
 import {
   createTeacherLogin,
   findlogger,
   updateTeacherLogin,
 } from "../Store/Slice/TeacherLoginSlice";
-import { AllClassBySchoolStatus } from "../Store/Slice/ClassSlice";
-import { AllSectionBySchoolStatus } from "../Store/Slice/SectionSlice";
-import { Toast } from "primereact/toast";
+import TeacherFrom from "./TeacherForm";
 
 export default function TeacherLoginUpdate({ data }) {
   const dispatch = useDispatch();
@@ -110,6 +111,30 @@ const RegisterForm = ({ data }) => {
     });
   };
 
+  const confirm1 = () => {
+    confirmDialog({
+      message: "Are you sure you want to save ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      defaultFocus: "accept",
+      acceptClassName: "bg-blue-500 px-5 py-3 text-white",
+      rejectClassName: "px-5 py-3 mx-3 ",
+      accept: onChangeUserPassword,
+    });
+  };
+
+  const confirm2 = () => {
+    confirmDialog({
+      message: "Are you sure you want to update ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      defaultFocus: "accept",
+      acceptClassName: "bg-blue-500 px-5 py-3 text-white",
+      rejectClassName: "px-5 py-3 mx-3 ",
+      accept: onRegister,
+    });
+  };
+
   return (
     <>
       <Toast ref={toast} />
@@ -156,7 +181,7 @@ const RegisterForm = ({ data }) => {
               name="ogpass"
               onChange={formHandler}
               feedback={false}
-disabled             
+              disabled
               className="w-full pl-2 border-gray-300 border  h-12 rounded-md"
             />
             <label htmlFor="username">Enter Password</label>
@@ -204,14 +229,14 @@ disabled
       {formData?.auth ? (
         <Button
           label="Update"
-          onClick={onChangeUserPassword}
-          className="mt-7 bg-cyan-500 w-full text-white p-3"
+          onClick={confirm2}
+          className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
         />
       ) : (
         <Button
           label="Create"
-          onClick={onRegister}
-          className="mt-7 bg-cyan-500 w-full text-white p-3"
+          onClick={confirm1}
+          className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
         />
       )}
     </>

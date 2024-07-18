@@ -1,20 +1,22 @@
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
-import { Dropdown } from "primereact/dropdown";
+import { confirmDialog } from "primereact/confirmdialog";
 import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import { useEffect, useRef, useState } from "react";
-import { createSchool, updateSchool } from "../Store/Slice/SchoolSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { createSchool, updateSchool } from "../Store/Slice/SchoolSlice";
 export default function SchoolForm({ label, data, close }) {
   const [formData, setFormData] = useState();
   const [checked, setChecked] = useState(false);
   const { School } = useSelector((state) => state.School);
   const dispatch = useDispatch();
+
   const formHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   useEffect(() => {
     if (label === "u" && data) {
       const sch = School.filter((item) => item?._id === data?._id);
@@ -23,20 +25,15 @@ export default function SchoolForm({ label, data, close }) {
     }
   }, [data, label, School]);
 
-  const cities = ["New York", "Rome", "London"];
-
   const toast = useRef(null);
 
   const showSuccessToast = (message) => {
     toast.current.show({
-      severity: "success",
-      summary: "Success Message",
+      severity: "info",
       detail: message,
       life: 3000,
     });
   };
-
-
 
   const onSubmit = () => {
     dispatch(
@@ -53,6 +50,7 @@ export default function SchoolForm({ label, data, close }) {
       }
     });
   };
+
   const onUpdate = () => {
     dispatch(
       updateSchool({
@@ -62,6 +60,31 @@ export default function SchoolForm({ label, data, close }) {
       })
     ).then((doc) => showSuccessToast(doc.payload.message));
   };
+
+  const confirm1 = () => {
+    confirmDialog({
+      message: "Are you sure you want to save ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      defaultFocus: "accept",
+      acceptClassName: "bg-blue-500 px-5 py-3 text-white",
+      rejectClassName: "px-5 py-3 mx-3 ",
+      accept: onSubmit,
+    });
+  };
+
+  const confirm2 = () => {
+    confirmDialog({
+      message: "Are you sure you want to update ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      defaultFocus: "accept",
+      acceptClassName: "bg-blue-500 px-5 py-3 text-white",
+      rejectClassName: "px-5 py-3 mx-3 ",
+      accept: onUpdate,
+    });
+  };
+
   return (
     <>
       {/* {error && showErrorToast(error)} */}
@@ -115,15 +138,15 @@ export default function SchoolForm({ label, data, close }) {
         </span>
         <div className="flex gap-2 mt-7">
           <span className="p-float-label w-full md:w-14rem">
-          <InputText
-            id="state"
-            useGrouping={false}
-            name="state"
-            inputClassName="pl-3 "
-            value={formData?.state}
-            onChange={formHandler}
-            className=" pl-3 outline-gray-300 outline outline-1 h-12 w-full rounded-md"
-          />
+            <InputText
+              id="state"
+              useGrouping={false}
+              name="state"
+              inputClassName="pl-3 "
+              value={formData?.state}
+              onChange={formHandler}
+              className=" pl-3 outline-gray-300 outline outline-1 h-12 w-full rounded-md"
+            />
             <label htmlFor="dd-state">State</label>
           </span>
           <span className="p-float-label ">
@@ -151,7 +174,8 @@ export default function SchoolForm({ label, data, close }) {
           <span className="flex gap-3">
             <Checkbox
               id="address"
-              className="outline-gray-300 outline outline-1 rounded-md"
+              
+              className="outline-gray-300  outline outline-1 rounded-md"
               onChange={(e) => setChecked(e.checked)}
               checked={checked}
             ></Checkbox>
@@ -160,14 +184,14 @@ export default function SchoolForm({ label, data, close }) {
         </div>
         {label === "s" ? (
           <Button
-            onClick={onSubmit}
-            className="bg-cyan-500 text-white w-full py-3 mt-5"
+            onClick={confirm1}
+            className="bg-green-500 text-white w-full py-3 mt-5"
             label="Create"
           />
         ) : (
           <Button
-            onClick={onUpdate}
-            className="bg-cyan-500 text-white w-full py-3 mt-5"
+            onClick={confirm2}
+            className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
             label="Update"
           />
         )}

@@ -1,17 +1,17 @@
-import { Button } from "primereact/button";
-import React, { useEffect, useState } from "react";
-import { Dialog } from "primereact/dialog";
 import { FilterMatchMode } from "primereact/api";
-import SchoolForm from "../Utility/SchoolForm";
-import { DataTable } from "primereact/datatable";
-import { Dropdown } from "primereact/dropdown";
+import { Button } from "primereact/button";
 import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import { Dialog } from "primereact/dialog";
+import { Dropdown } from "primereact/dropdown";
 import { Tag } from "primereact/tag";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getAllSchool } from "../Store/Slice/SchoolSlice";
 import SchoolDasboard from "../Utility/SchoolDasboard";
-import { useNavigate } from "react-router-dom";
-export default function School({ data }) {
+import SchoolForm from "../Utility/SchoolForm";
+export default function School() {
   const [selectSchool, setSelectSchool] = useState();
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
@@ -25,18 +25,16 @@ export default function School({ data }) {
     }
   }, [navigate]);
   useEffect(() => {
-    dispatch(getAllSchool()).then(
-      (doc) => {
-        if (doc.payload?.response?.status === 403) {
-          localStorage.removeItem("email");
-          localStorage.removeItem("Admintoken");
-          localStorage.removeItem("schoolid");
-          localStorage.removeItem("schoolName");
-          navigate("/login");
-        }
+    dispatch(getAllSchool()).then((doc) => {
+      if (doc.payload?.response?.status === 403) {
+        localStorage.removeItem("email");
+        localStorage.removeItem("Admintoken");
+        localStorage.removeItem("schoolid");
+        localStorage.removeItem("schoolName");
+        navigate("/login");
       }
-    );;
-  }, [dispatch]);
+    });
+  }, [dispatch, navigate]);
 
   const [filters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -86,7 +84,7 @@ export default function School({ data }) {
         onChange={(e) => options.filterApplyCallback(e.value)}
         itemTemplate={statusItemTemplate}
         placeholder="Select One"
-        className="p-column-filter"
+        className="h-11"
         showClear
         style={{ minWidth: "12rem" }}
       />
@@ -102,7 +100,7 @@ export default function School({ data }) {
           setLable("s");
         }}
         label="Create School"
-        className="bg-cyan-500 p-2 text-white"
+        className="bg-blue-500 hover:bg-blue-700 duration-300 px-5 py-3 text-white"
       />
     </div>
   );
@@ -143,7 +141,7 @@ export default function School({ data }) {
         selectionMode="single"
         footer={footer}
         selection={selectSchool}
-        rows={10}
+        rows={8}
         paginator
         onSelectionChange={(e) => {
           setSelectSchool(e.value);

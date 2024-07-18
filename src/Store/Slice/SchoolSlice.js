@@ -27,7 +27,7 @@ export const getByUserAllSchool = createAsyncThunk(
     }
   }
 );
-// admin / teacher / school
+// create school
 export const createSchool = createAsyncThunk(
   "School/create",
   async (data, { rejectWithValue }) => {
@@ -39,7 +39,7 @@ export const createSchool = createAsyncThunk(
     }
   }
 );
-// admin / teacher / school
+// update school
 export const updateSchool = createAsyncThunk(
   "School/update",
   async (data, { rejectWithValue }) => {

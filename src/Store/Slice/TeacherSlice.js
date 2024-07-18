@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../Config/Http";
 
-// eslint-disable-next-line no-undef
+
 const url = process.env.REACT_APP_API + "/teacher";
 
-// Teacher and teacher
+// get all teacher by schoolid
 export const getAllTeacherBySchool = createAsyncThunk(
   "Teacher/BySchoolall",
   async (id, { rejectWithValue }) => {
@@ -16,8 +16,7 @@ export const getAllTeacherBySchool = createAsyncThunk(
     }
   }
 );
-
-// teacher portal
+// get teacher by id
 export const getByIdTeacher = createAsyncThunk(
   "Teacher/BySchoolall",
   async (id, { rejectWithValue }) => {
@@ -30,7 +29,7 @@ export const getByIdTeacher = createAsyncThunk(
     }
   }
 );
-// admin / teacher / Teacher
+// create teacher
 export const createTeacher = createAsyncThunk(
   "Teacher/create",
   async (data, { rejectWithValue }) => {
@@ -42,7 +41,7 @@ export const createTeacher = createAsyncThunk(
     }
   }
 );
-// admin / teacher / Teacher
+// update teacher
 export const updateTeacher = createAsyncThunk(
   "Teacher/update",
   async (data, { rejectWithValue }) => {

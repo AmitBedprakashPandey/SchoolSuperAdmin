@@ -1,14 +1,15 @@
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
+import { confirmDialog } from "primereact/confirmdialog";
 import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { updateTeacher, createTeacher } from "../Store/Slice/TeacherSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { AllSectionBySchoolStatus } from "../Store/Slice/SectionSlice";
 import { AllClassBySchoolStatus } from "../Store/Slice/ClassSlice";
+import { AllSectionBySchoolStatus } from "../Store/Slice/SectionSlice";
+import { createTeacher, updateTeacher } from "../Store/Slice/TeacherSlice";
 export default function TeacherForm({ label, data }) {
   const [formData, setFormData] = useState();
   const [checked, setChecked] = useState(false);
@@ -77,6 +78,30 @@ export default function TeacherForm({ label, data }) {
         status: checked,
       })
     ).then((doc) => showSuccessToast(doc.payload.message));
+  };
+
+  const confirm1 = () => {
+    confirmDialog({
+      message: "Are you sure you want to save ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      defaultFocus: "accept",
+      acceptClassName: "bg-blue-500 px-5 py-3 text-white",
+      rejectClassName: "px-5 py-3 mx-3 ",
+      accept: onSubmit,
+    });
+  };
+
+  const confirm2 = () => {
+    confirmDialog({
+      message: "Are you sure you want to update ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      defaultFocus: "accept",
+      acceptClassName: "bg-blue-500 px-5 py-3 text-white",
+      rejectClassName: "px-5 py-3 mx-3 ",
+      accept: onUpdate,
+    });
   };
   return (
     <>
@@ -171,14 +196,14 @@ export default function TeacherForm({ label, data }) {
         </div>
         {label === "s" ? (
           <Button
-            onClick={onSubmit}
-            className="bg-cyan-500 text-white w-full py-3 mt-5"
+            onClick={confirm1}
+            className="bg-green-600 hover:bg-green-700 duration-300 text-white w-full py-3 mt-5"
             label="Create"
           />
         ) : (
           <Button
-            onClick={onUpdate}
-            className="bg-cyan-500 text-white w-full py-3 mt-5"
+            onClick={confirm2}
+            className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
             label="Update"
           />
         )}

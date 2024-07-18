@@ -1,13 +1,13 @@
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
-import { Password } from "primereact/password";
-import { Message } from "primereact/message";
 import { FloatLabel } from "primereact/floatlabel";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../Store/Slice/LoginSlice";
+import { InputText } from "primereact/inputtext";
+import { Message } from "primereact/message";
+import { Password } from "primereact/password";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../Store/Slice/LoginSlice";
 import DeviceValidation from "./DeviceValidation";
 
 export default function LoginPage() {

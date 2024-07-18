@@ -1,0 +1,23 @@
+
+
+.p-fluid .p-column-filter-element >  .p-inputtext{
+    border: 1px solid silver;
+    border-radius: 5px;
+}
+
+.p-fluid .p-column-filter-element{
+    border: 1px solid silver;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content{
+    background: transparent !important;
+}
+
+.p-menuitem-text{
+    /* color: white; */
+}

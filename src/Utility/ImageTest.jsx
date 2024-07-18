@@ -1,15 +1,15 @@
+import axios from "axios";
+import Compressor from "compressorjs";
+import { Checkbox } from "primereact/checkbox";
+import { confirmDialog } from "primereact/confirmdialog";
+import { Toast } from "primereact/toast";
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   AllTemplate,
   CreateTemplate,
   UpdateTemplate,
 } from "../Store/Slice/TemplateSlice";
-import { Toast } from "primereact/toast";
-import { Checkbox } from "primereact/checkbox";
-import { FileUpload } from "primereact/fileupload";
-import Compressor from "compressorjs";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 const ImageTest = ({ data }) => {
   const [formData, setFormData] = useState();
   const [checked, setChecked] = useState(false);
@@ -36,7 +36,7 @@ const ImageTest = ({ data }) => {
       setTemp2(doc.payload[0]?.tempimage2);
       setChecked(doc.payload[0]?.status);
     });
-  }, [dispatch]);
+  }, [dispatch, data]);
 
   useEffect(() => {
     dispatch(AllTemplate(data)).then((doc) => {
@@ -48,7 +48,7 @@ const ImageTest = ({ data }) => {
 
       setChecked(doc.payload[0]?.status);
     });
-  }, [dispatch]);
+  }, [dispatch, data]);
 
   const showSuccessToast = (message) => {
     toast.current.show({
@@ -59,7 +59,7 @@ const ImageTest = ({ data }) => {
     });
   };
 
-  // Replace placeholders in template with student data
+  // Replace placeholders in template with student data (Front Side)
   const renderTemplate = () => {
     let modifiedTemplate = template || "";
     modifiedTemplate = modifiedTemplate.replace("${name}", student?.name);
@@ -93,8 +93,8 @@ const ImageTest = ({ data }) => {
     modifiedTemplate = modifiedTemplate.replace("${PuchSheelIcard}", temp);
     return modifiedTemplate;
   };
-
-  const renderTemplate2 = (data) => {
+  // Replace placeholders in template with student data (Back Side)
+  const renderTemplate2 = () => {
     let modifiedTemplate = template2 || "";
     modifiedTemplate = modifiedTemplate.replace("${PuchSheelIcard}", temp2);
     modifiedTemplate = modifiedTemplate.replace(
@@ -104,7 +104,8 @@ const ImageTest = ({ data }) => {
     modifiedTemplate = modifiedTemplate.replace(
       "${fatherimage}",
       student?.fatherimage
-    );  modifiedTemplate = modifiedTemplate.replace(
+    );
+    modifiedTemplate = modifiedTemplate.replace(
       "${admission_id}",
       student?.admission_id
     );
@@ -124,7 +125,6 @@ const ImageTest = ({ data }) => {
       "${guardianimage}",
       student?.guardianimage
     );
-
     modifiedTemplate = modifiedTemplate.replace(
       "${mothername}",
       student?.mothername
@@ -158,6 +158,30 @@ const ImageTest = ({ data }) => {
         schoolid: data,
       })
     ).then((e) => showSuccessToast(e.payload?.message));
+  };
+
+  const confirm1 = () => {
+    confirmDialog({
+      message: "Are you sure you want to save ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      defaultFocus: "accept",
+      acceptClassName: "bg-blue-500 px-5 py-3 text-white",
+      rejectClassName: "px-5 py-3 mx-3 ",
+      accept: onSave,
+    });
+  };
+
+  const confirm2 = () => {
+    confirmDialog({
+      message: "Are you sure you want to update ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      defaultFocus: "accept",
+      acceptClassName: "bg-blue-500 px-5 py-3 text-white",
+      rejectClassName: "px-5 py-3 mx-3 ",
+      accept: onUpdate,
+    });
   };
 
   const handleFileChange = async (event) => {
@@ -269,15 +293,15 @@ const ImageTest = ({ data }) => {
       <span className="flex flex-col">
         {!Templates[0] ? (
           <button
-            onClick={onSave}
-            className="bg-cyan-500 text-white py-3 rounded-lg"
+            onClick={confirm1}
+            className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
           >
             Create
           </button>
         ) : (
           <button
-            onClick={onUpdate}
-            className="bg-cyan-500 text-white py-3 rounded-lg"
+            onClick={confirm2}
+            className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
           >
             Update
           </button>

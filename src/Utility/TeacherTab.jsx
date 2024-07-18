@@ -1,11 +1,11 @@
-import { Button } from "primereact/button";
-import React, { useEffect, useState } from "react";
-import { Dialog } from "primereact/dialog";
 import { FilterMatchMode } from "primereact/api";
-import { DataTable } from "primereact/datatable";
-import { Dropdown } from "primereact/dropdown";
+import { Button } from "primereact/button";
 import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import { Dialog } from "primereact/dialog";
+import { Dropdown } from "primereact/dropdown";
 import { Tag } from "primereact/tag";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTeacherBySchool } from "../Store/Slice/TeacherSlice";
 import TeacherLogin from "../Utility/TeacherLoginUpdate";
@@ -86,7 +86,7 @@ export default function TeacherTab({ schoolid }) {
           setLable("s");
         }}
         label="Create Teacher"
-        className="bg-cyan-500 p-2 text-white"
+        className="bg-blue-500 hover:bg-blue-700 duration-300 px-5 py-3 text-white"
       />
     </div>
   );

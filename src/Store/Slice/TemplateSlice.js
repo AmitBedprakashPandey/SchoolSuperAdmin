@@ -3,6 +3,7 @@ import axios from "../Config/Http";
 
 const url = process.env.REACT_APP_API + "/template";
 
+// get all template
 export const AllTemplate = createAsyncThunk(
   "Template/all",
   async (id, { rejectWithValue }) => {
@@ -15,18 +16,7 @@ export const AllTemplate = createAsyncThunk(
   }
 );
 
-export const AllTemplateBySchoolStatus = createAsyncThunk(
-  "Template/allSchoolStatus",
-  async (id, { rejectWithValue }) => {
-    try {
-      const res = await axios.get(`${url}/${id}/${true}`);
-      return res.data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-);
-// create for admin
+// create for template
 export const CreateTemplate = createAsyncThunk(
   "Template/create",
   async (data, { rejectWithValue }) => {
@@ -38,7 +28,7 @@ export const CreateTemplate = createAsyncThunk(
     }
   }
 );
-// update for admin
+// update for template
 export const UpdateTemplate = createAsyncThunk(
   "Template/update",
   async (data, { rejectWithValue }) => {
@@ -50,6 +40,7 @@ export const UpdateTemplate = createAsyncThunk(
     }
   }
 );
+
 export const TemplateSlice = createSlice({
   name: "Template",
   initialState: {
@@ -74,20 +65,7 @@ export const TemplateSlice = createSlice({
         state.Templates = [];
         state.error = action.payload;
       })
-      .addCase(AllTemplateBySchoolStatus.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(AllTemplateBySchoolStatus.fulfilled, (state, action) => {
-        state.Templates = action.payload;
-        state.error = null;
-        state.loading = false;
-      })
-      .addCase(AllTemplateBySchoolStatus.rejected, (state, action) => {
-        state.loading = false;
-        state.Templates = [];
-        state.error = action.payload;
-      })
+
       .addCase(CreateTemplate.pending, (state) => {
         state.loading = true;
       })
