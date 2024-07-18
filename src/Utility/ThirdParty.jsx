@@ -108,34 +108,40 @@ export default function ThirdParty({ data }) {
   return (
     <>
       <Toast ref={toast} />
+      <div className="flex justify-center">
+        <div className="relative  border border-slate-300 shadow-md shadow-slate-500 p-5 rounded-md">
+
+        
       <div className="flex gap-3">
         <span className="p-float-label mt-7 w-full">
           <InputText
-            id="username"
+            id="schoolname"
             value={data?.name}
-            name="email"
-            onChange={formHandler}
             disabled
             className="w-full border-gray-300 border px-2 py-3"
           />
-          <label htmlFor="username">First Name</label>
+          <label htmlFor="schoolname">School Name</label>
         </span>
       </div>
       <span className="p-float-label mt-7">
         <InputText
-          id="username"
+          id="email"
           value={formData?.email}
+          autoComplete="email"
           name="email"
           onChange={formHandler}
           className="w-full border-gray-300 border px-2 py-3"
         />
-        <label htmlFor="username">Username</label>
+        <label htmlFor="email">
+          Username id <span className="text-red-500">*</span>
+        </label>
       </span>
       {formData?.auth ? (
         <>
           <span className="p-float-label mt-7 w-full">
             <InputText
-              id="username"
+              id="ogpass"
+              autoComplete="current-password"
               value={formData?.ogpass}
               name="ogpass"
               onChange={formHandler}
@@ -143,35 +149,37 @@ export default function ThirdParty({ data }) {
               feedback={false}
               className="w-full pl-2 border-gray-300 border  h-12 rounded-md"
             />
-            <label htmlFor="username">Original Password</label>
+            <label htmlFor="ogpass">Original Password</label>
           </span>
           <span className="p-float-label mt-7 w-full">
             <Password
-              id="username"
+              id="newpass"
               value={formData?.newpass}
               name="newpass"
+              autoComplete="new-password"
               onChange={formHandler}
               feedback={false}
               toggleMask
-              inputClassName="w-full pl-3"
-              className="w-full border-gray-300 border  h-12 rounded-md"
+              inputClassName="w-96 h-12 pl-3 border-gray-300 border"
+              className="rounded-md"
             />
-            <label htmlFor="username">Enter Password</label>
+            <label htmlFor="newpass">Enter New Password</label>
           </span>
         </>
       ) : (
         <span className="p-float-label mt-7 w-full">
           <Password
-            id="username"
+            id="pass"
             value={formData?.pass}
             name="pass"
+            autoComplete="current-password"
             onChange={formHandler}
             feedback={false}
             inputClassName="w-full pl-3"
             toggleMask
             className="w-full border-gray-300 border  h-12 rounded-md"
           />
-          <label htmlFor="username">Enter Password</label>
+          <label htmlFor="pass">Enter Password</label>
         </span>
       )}
 
@@ -198,6 +206,9 @@ export default function ThirdParty({ data }) {
           className="bg-green-600 hover:bg-green-700 duration-300 text-white w-full py-3 mt-5"
         />
       )}
+
+</div>
+      </div>
     </>
   );
 }

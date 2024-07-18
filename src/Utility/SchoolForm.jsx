@@ -98,7 +98,9 @@ export default function SchoolForm({ label, data, close }) {
             onChange={formHandler}
             className="w-full border-gray-300 border px-2 py-3"
           />
-          <label htmlFor="schoolnm">School Name</label>
+          <label htmlFor="schoolnm">
+            School Name <span className="text-red-500">*</span>
+          </label>
         </span>
         <span className="p-float-label mt-7">
           <InputText
@@ -108,7 +110,9 @@ export default function SchoolForm({ label, data, close }) {
             onChange={formHandler}
             className="w-full border-gray-300 border px-2 py-3"
           />
-          <label htmlFor="address">Address</label>
+          <label htmlFor="address">
+            Address <span className="text-red-500">*</span>
+          </label>
         </span>
         <span className="p-float-label mt-7">
           <InputNumber
@@ -122,7 +126,9 @@ export default function SchoolForm({ label, data, close }) {
             aria-autocomplete="none"
             className="w-full outline-gray-300 outline outline-1 h-12 rounded-md"
           />
-          <label htmlFor="office1">Office Number</label>
+          <label htmlFor="office1">
+            Office Number <span className="text-red-500">*</span>
+          </label>
         </span>
         <span className="p-float-label mt-7">
           <InputNumber
@@ -147,7 +153,9 @@ export default function SchoolForm({ label, data, close }) {
               onChange={formHandler}
               className=" pl-3 outline-gray-300 outline outline-1 h-12 w-full rounded-md"
             />
-            <label htmlFor="dd-state">State</label>
+            <label htmlFor="dd-state">
+              State <span className="text-red-500">*</span>
+            </label>
           </span>
           <span className="p-float-label ">
             <InputText
@@ -157,24 +165,29 @@ export default function SchoolForm({ label, data, close }) {
               onChange={formHandler}
               className="w-full border-gray-300 border px-2 py-3"
             />
-            <label htmlFor="city">City</label>
+            <label htmlFor="city">
+              City <span className="text-red-500">*</span>
+            </label>
           </span>
           <span className="p-float-label ">
-            <InputText
+            <InputNumber
               id="address"
               name="pincode"
+              useGrouping={false}
               value={formData?.pincode}
-              onChange={formHandler}
-              className="w-full border-gray-300 border px-2 py-3"
+              maxLength={6}
+              onChange={(e) => formHandler(e.originalEvent)}
+              inputClassName="w-full border-gray-300 border px-2 py-3"
             />
-            <label htmlFor="address">Pincode</label>
+            <label htmlFor="address">
+              Pincode <span className="text-red-500">*</span>
+            </label>
           </span>
         </div>
         <div className=" flex justify-center mt-7">
           <span className="flex gap-3">
             <Checkbox
               id="address"
-              
               className="outline-gray-300  outline outline-1 rounded-md"
               onChange={(e) => setChecked(e.checked)}
               checked={checked}
@@ -187,6 +200,16 @@ export default function SchoolForm({ label, data, close }) {
             onClick={confirm1}
             className="bg-green-500 text-white w-full py-3 mt-5"
             label="Create"
+            disabled={
+              formData?.name &&
+              formData?.address &&
+              formData?.office1 &&
+              formData?.state &&
+              formData?.city &&
+              formData?.pincode
+                ? false
+                : true
+            }
           />
         ) : (
           <Button

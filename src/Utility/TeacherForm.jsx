@@ -117,7 +117,7 @@ export default function TeacherForm({ label, data }) {
               onChange={formHandler}
               className="w-full border-gray-300 border px-2 py-3"
             />
-            <label htmlFor="address">Enter Name</label>
+            <label htmlFor="address">Enter Name <span className="text-red-500">*</span></label>
           </span>
           <span className="p-float-label mt-7 w-full">
             <InputText
@@ -127,7 +127,7 @@ export default function TeacherForm({ label, data }) {
               onChange={formHandler}
               className="w-full border-gray-300 border px-2 py-3"
             />
-            <label htmlFor="address">Last Name</label>
+            <label htmlFor="address">Last Name <span className="text-red-500">*</span></label>
           </span>
         </div>
         <span className="p-float-label mt-7">
@@ -151,7 +151,7 @@ export default function TeacherForm({ label, data }) {
             inputClassName="pl-2"
             className="w-full h-12 rounded-lg  border-gray-300 border"
           />
-          <label htmlFor="address">Enter Mobile</label>
+          <label htmlFor="address">Enter Mobile <span className="text-red-500">*</span></label>
         </span>
 
         <div className="flex gap-2 mt-7">
@@ -166,7 +166,7 @@ export default function TeacherForm({ label, data }) {
               optionValue="class"
               className="w-full border-gray-300 border"
             />
-            <label htmlFor="dd-clas">Select Class</label>
+            <label htmlFor="dd-clas">Select Class <span className="text-red-500">*</span></label>
           </span>
           <span className="p-float-label w-full md:w-14rem">
             <Dropdown
@@ -179,7 +179,7 @@ export default function TeacherForm({ label, data }) {
               optionValue="section"
               className="w-full border-gray-300 border"
             />
-            <label htmlFor="dd-section">Select Section</label>
+            <label htmlFor="dd-section">Select Section <span className="text-red-500">*</span></label>
           </span>
         </div>
         <div className=" flex justify-center mt-7">
@@ -199,6 +199,15 @@ export default function TeacherForm({ label, data }) {
             onClick={confirm1}
             className="bg-green-600 hover:bg-green-700 duration-300 text-white w-full py-3 mt-5"
             label="Create"
+            disabled={
+              formData?.name &&
+              formData?.lastnm &&
+              formData?.mobile &&
+              formData?.section &&
+              formData?.classs
+                ? false
+                : true
+            }
           />
         ) : (
           <Button

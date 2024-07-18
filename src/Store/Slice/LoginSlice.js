@@ -11,6 +11,10 @@ export const loginUser = createAsyncThunk(
       if (response.status === 404) {
         return rejectWithValue(response.data);
       }
+      if (response.status === 403) {
+        localStorage.removeItem("Superemail");
+        localStorage.removeItem("Supertoken");
+      }
       if (response.status === 200) {
         localStorage.setItem("Superemail", response.data.email);
         localStorage.setItem("Supertoken", response.data.superToken);
@@ -54,6 +58,6 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { logout} = loginSlice.actions;
+export const { logout } = loginSlice.actions;
 
 export default loginSlice.reducer;

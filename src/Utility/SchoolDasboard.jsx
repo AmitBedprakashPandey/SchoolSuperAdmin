@@ -20,22 +20,23 @@ import {
   SchoolAdminUpdate,
 } from "../Store/Slice/AdminLoginSlice";
 export default function SchoolDasboard({ data }) {
+  const [tabNm,setTabNm] =useState('school');
   return (
     <>
       <TabView>
-        <TabPanel header="Update School">
+        <TabPanel header={<span onClick={()=>setTabNm('school')} className={`${tabNm === 'school' ?  'border-b-2' : 'border-none' } border-black pb-3`}>Update School</span>}>
           <SchoolForm label="u" data={data} />
         </TabPanel>
-        <TabPanel header="Teacher">
+        <TabPanel header={<span onClick={()=>setTabNm('tracher')} className={`${tabNm === 'tracher' ?  'border-b-2' : 'border-none' } border-black pb-3`}>Tracher</span>}>
           <TeacherTab schoolid={data} />
         </TabPanel>
-        <TabPanel header="Third Party">
+        <TabPanel header={<span onClick={()=>setTabNm('Third Party')} className={`${tabNm === 'Third Party' ?  'border-b-2' : 'border-none' } border-black pb-3`}>Third Party</span>}>
           <ThirdParty data={data} />
         </TabPanel>
-        <TabPanel header="ICard Template">
+        <TabPanel header={<span onClick={()=>setTabNm('Template')} className={`${tabNm === 'Template' ?  'border-b-2' : 'border-none' } border-black pb-3`}>ICard Template</span>}>
           <ImageTest data={data?._id} />
         </TabPanel>
-        <TabPanel header="School Admin">
+        <TabPanel header={<span onClick={()=>setTabNm('admin')} className={`${tabNm === 'admin' ?  'border-b-2' : 'border-none' } border-black pb-3`}>School Admin</span>}>
           <RegisterForm data={data} />
         </TabPanel>
       </TabView>
@@ -159,7 +160,8 @@ const RegisterForm = ({ data }) => {
   return (
     <>
       <Toast ref={toast} />
-      <div className="grid place-content-center">
+      <div className="flex justify-center">
+      <div className="flex flex-col shadow-slate-500 shadow-md border border-slate-400 p-5">
         <form>
           <div className="flex gap-3 w-96">
             <span className="p-float-label mt-7 w-full">
@@ -286,6 +288,7 @@ const RegisterForm = ({ data }) => {
             className="bg-green-600 hover:bg-green-700 duration-300 text-white w-full py-3 mt-5"
           />
         )}
+      </div>
       </div>
     </>
   );

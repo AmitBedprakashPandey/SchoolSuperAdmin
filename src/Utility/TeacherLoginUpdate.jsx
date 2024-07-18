@@ -138,81 +138,87 @@ const RegisterForm = ({ data }) => {
   return (
     <>
       <Toast ref={toast} />
-      <div className="flex gap-3">
+      <div className="flex justify-center">
+      <div className="relative border border-slate-300 shadow-md shadow-slate-500 p-5 rounded-md">
+
+      
+      <div className="w-96 flex gap-3">
         <span className="p-float-label mt-7 w-full">
           <InputText
-            id="username"
+            id="firstname"
             value={data?.name}
-            name="email"
-            onChange={formHandler}
+
             disabled
             className="w-full border-gray-300 border px-2 py-3"
           />
-          <label htmlFor="username">First Name</label>
+          <label htmlFor="firstname">First Name</label>
         </span>
         <span className="p-float-label mt-7 w-full">
           <InputText
-            id="username"
+            id="lastname"
             value={data?.lastnm}
-            name="email"
-            onChange={formHandler}
             disabled
             className="w-full border-gray-300 border px-2 py-3"
           />
-          <label htmlFor="username">Last Name</label>
+          <label htmlFor="lastname">Last Name</label>
         </span>
       </div>
       <span className="p-float-label mt-7">
         <InputText
-          id="username"
+          id="email"
           value={formData?.email}
           name="email"
+          autoComplete="email"
           onChange={formHandler}
-          className="w-full border-gray-300 border px-2 py-3"
+          className="w-96 border-gray-300 border px-2 py-3"
         />
-        <label htmlFor="username">Username</label>
+        <label htmlFor="email">Username id <span className="text-red-500">*</span></label>
       </span>
       {formData?.auth ? (
-        <>
+        <div className="w-full">
           <span className="p-float-label mt-7 w-full">
             <InputText
-              id="username"
+              id="ogpass"
               value={formData?.ogpass}
               name="ogpass"
+              autoComplete="current-password"
               onChange={formHandler}
               feedback={false}
               disabled
-              className="w-full pl-2 border-gray-300 border  h-12 rounded-md"
+              className="w-96 pl-2 border-gray-300 border  h-12 rounded-md"
             />
-            <label htmlFor="username">Enter Password</label>
+            <label htmlFor="ogpass">Orignal Password</label>
           </span>
           <span className="p-float-label mt-7 w-full">
             <Password
-              id="username"
+              id="newpass"
               value={formData?.newpass}
               name="newpass"
+              autoComplete="new-password"
               onChange={formHandler}
               feedback={false}
               toggleMask
-              inputClassName="w-full pl-3"
-              className="w-full border-gray-300 border  h-12 rounded-md"
+              inputClassName="w-96 h-12 pl-3 border-gray-300 border"
+              
+              className="rounded-md"
             />
-            <label htmlFor="username">Enter Password</label>
+            <label htmlFor="newpass">Enter New Password</label>
           </span>
-        </>
+        </div>
       ) : (
         <span className="p-float-label mt-7 w-full">
           <Password
-            id="username"
+            id="pass"
             value={formData?.pass}
             name="pass"
+            autoComplete="new-password"
             onChange={formHandler}
             feedback={false}
-            inputClassName="w-full pl-3"
+          inputClassName="w-96 h-12 pl-3 border-gray-300 border"
+           className="rounded-md"
             toggleMask
-            className="w-full border-gray-300 border  h-12 rounded-md"
           />
-          <label htmlFor="username">Enter Password</label>
+          <label htmlFor="pass">Enter Password <span className="text-red-500">*</span></label>
         </span>
       )}
 
@@ -226,6 +232,7 @@ const RegisterForm = ({ data }) => {
         ></Checkbox>
         <label htmlFor="address">Active</label>
       </span>
+
       {formData?.auth ? (
         <Button
           label="Update"
@@ -236,9 +243,11 @@ const RegisterForm = ({ data }) => {
         <Button
           label="Create"
           onClick={confirm1}
+          disabled={formData?.email && formData?.pass ? false : true}
           className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
         />
       )}
+</div></div>
     </>
   );
 };
