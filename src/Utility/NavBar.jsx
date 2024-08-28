@@ -7,16 +7,7 @@ import DeviceValidation from "./DeviceValidation";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const start = (
-    <div className="flex items-center gap-2">
-      <img
-        alt="logo"
-        src="https://primefaces.org/cdn/primereact/images/logo.png"
-        className="h-10"
-      />
-      <h1 className="text-white font-bold">Digital Branded School</h1>
-    </div>
-  );
+
 
   const accept = () => {
     localStorage.removeItem("Superemail");
@@ -36,6 +27,17 @@ export default function Navbar() {
       accept,
     });
   };
+
+  const start = (
+    <div className="flex items-center gap-2">
+      <img
+        alt="logo"
+        src="https://primefaces.org/cdn/primereact/images/logo.png"
+        className="h-10"
+      />
+      <h1 className="text-white font-bold">Digital Branded School</h1>
+    </div>
+  );
 
   const end = (
     <div className="flex align-items-center items-center gap-2">

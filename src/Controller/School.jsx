@@ -93,14 +93,14 @@ export default function School() {
 
   const header = (
     <div className="flex justify-between items-center">
-      <span className="text-xl text-900 font-bold">School List</span>
+      <span className="text-md text-900 font-bold">School List</span>
       <Button
         onClick={() => {
           setVisible(true);
           setLable("s");
         }}
         label="Create School"
-        className="bg-blue-500 hover:bg-blue-700 duration-300 px-5 py-3 text-white"
+        className="bg-blue-500 hover:bg-blue-700 duration-300 px-4 py-2 text-white"
       />
     </div>
   );
@@ -129,6 +129,7 @@ export default function School() {
       >
         <SchoolDasboard data={selectSchool} />
       </Dialog>
+<div className="flex-1">
 
       <DataTable
         value={School}
@@ -137,9 +138,11 @@ export default function School() {
         stripedRows
         filterDisplay="row"
         filters={filters}
-        tableStyle={{ minWidth: "60rem" }}
+        tableStyle={{  }}
+        className="h-full"
         selectionMode="single"
         footer={footer}
+      
         selection={selectSchool}
         rows={8}
         paginator
@@ -150,25 +153,25 @@ export default function School() {
       >
         <Column
           filter
-          filterPlaceholder="Search school"
+          filterPlaceholder="Search"
           field="name"
           header="School Name"
-          className="w-[20rem]"
+          className="w-80"
         ></Column>
         <Column field="address" header="Address" className="w-[20rem]"></Column>
         <Column
           filter
           field="city"
           header="City"
-          className="w-[10rem]"
-          filterPlaceholder="Search city"
+          className="w-52"
+          filterPlaceholder="Search"
         ></Column>
         <Column
           filter
           field="state"
           header="State"
-          className="w-[10rem]"
-          filterPlaceholder="Search state"
+          className="w-52"
+          filterPlaceholder="Search"
         ></Column>
 
         <Column
@@ -192,6 +195,7 @@ export default function School() {
           filterElement={statusRowFilterTemplate}
         />
       </DataTable>
+  </div>
     </>
   );
 }

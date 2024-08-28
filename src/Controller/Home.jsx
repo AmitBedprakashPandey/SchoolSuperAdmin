@@ -1,6 +1,6 @@
 import { PanelMenu } from "primereact/panelmenu";
 import { useEffect } from "react";
-import { MdBackup, MdSchool } from "react-icons/md";
+import { MdBackup, MdSchool,MdSpeed } from "react-icons/md";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import DeviceValidation from "../Utility/DeviceValidation";
 import Navbar from "../Utility/NavBar";
@@ -24,7 +24,23 @@ export default function Home() {
     };
   }, []);
 
-  const items = [
+  const items = [{
+    label:"Dashborad",
+    url:"/",
+    className: `${
+      param.pathname === "/" ? "bg-blue-500 " : ""
+    } `,
+    labelClassName: `${
+      param.pathname === "/" ? "text-white " : "text-black"
+    }`,
+    icon: (
+      <MdSpeed
+        className="mr-3"
+        color={param.pathname === "/" ? "#ffff " : "#000"}
+        size={20}
+      />
+    ),
+  },
     {
       label: "School",
       labelClassName: `${
@@ -38,7 +54,7 @@ export default function Home() {
         />
       ),
       className: `${
-        param.pathname === "/school" ? "bg-blue-500 " : "bg-slate-200"
+        param.pathname === "/school" ? "bg-blue-500 " : ""
       } `,
       url: "school",
     },
@@ -55,7 +71,7 @@ export default function Home() {
         />
       ),
       className: `${
-        param.pathname === "/backup" ? "bg-blue-500 " : "bg-slate-200"
+        param.pathname === "/backup" ? "bg-blue-500 " : ""
       } `,
       url: "backup",
     },
@@ -65,22 +81,18 @@ export default function Home() {
       <Navbar />
       <DeviceValidation />
       <div className="flex gap-3 mt-14">
-        <div className="h-full">
-          <div className="relative w-72 h-[94vh] p-0 rounded-none  shadow-gray-500 shadow-md">
+        <div className="flex-1">
+          <div className="relative w-72 h-full p-0 rounded-none  shadow-gray-500 shadow-md">
             <PanelMenu
+            
               model={items.map((item) => ({
                 ...item,
                 template: (item, options) => {
                   return (
                     <Link
                       to={item.url}
-                      className={`p-panelmenu-header ${item.className} ${options.className}`}
-                      style={{
-                        color:
-                          param.pathname === "/school" || "/backup"
-                            ? "#fff"
-                            : "#000",
-                      }}
+                      className={`p-panelmenu-header ${item.className} ${options.className} h-12`}
+                   
                     >
                       <span className={options.iconClassName}>{item.icon}</span>
                       <span className={item.labelClassName}>{item.label}</span>
@@ -90,7 +102,7 @@ export default function Home() {
               }))}
             />
             <small className="absolute bottom-0 py-5 flex justify-center w-full">
-              Amit Pandey ©Copyright v1
+              Amit Pandey © Copyright 2024 v1
             </small>
           </div>
         </div>

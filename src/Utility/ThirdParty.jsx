@@ -109,7 +109,7 @@ export default function ThirdParty({ data }) {
     <>
       <Toast ref={toast} />
       <div className="flex justify-center">
-        <div className="relative  border border-slate-300 shadow-md shadow-slate-500 p-5 rounded-md">
+        <div className="w-auto relative  border border-slate-300 shadow-md shadow-slate-500 p-5 rounded-md">
 
         
       <div className="flex gap-3">
@@ -160,8 +160,8 @@ export default function ThirdParty({ data }) {
               onChange={formHandler}
               feedback={false}
               toggleMask
-              inputClassName="w-96 h-12 pl-3 border-gray-300 border"
-              className="rounded-md"
+              inputClassName="w-96  h-12 p-3 border-gray-300 border rounded-md"
+              className=""
             />
             <label htmlFor="newpass">Enter New Password</label>
           </span>
@@ -175,9 +175,9 @@ export default function ThirdParty({ data }) {
             autoComplete="current-password"
             onChange={formHandler}
             feedback={false}
-            inputClassName="w-full pl-3"
+            inputClassName="w-96  h-12 p-3 border-gray-300 border rounded-md"
             toggleMask
-            className="w-full border-gray-300 border  h-12 rounded-md"
+            className="w-full"
           />
           <label htmlFor="pass">Enter Password</label>
         </span>
