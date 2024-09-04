@@ -196,13 +196,13 @@ export default function ThirdParty({ data }) {
       {formData?.auth ? (
         <Button
           label="Update"
-          onClick={confirm2}
+          onClick={confirm1}
           className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
         />
       ) : (
         <Button
           label="Create"
-          onClick={confirm1}
+          onClick={confirm2}
           className="bg-green-600 hover:bg-green-700 duration-300 text-white w-full py-3 mt-5"
         />
       )}

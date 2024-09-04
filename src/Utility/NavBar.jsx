@@ -21,7 +21,7 @@ export default function Navbar() {
       message: "Are you sure you want to Logout ?",
       header: "Confirmation",      
       icon: "pi pi-exclamation-triangle",
-      acceptClassName: "bg-blue-500 text-white px-5 py-2 ml-5",
+      acceptClassName: "bg-primary text-white px-5 py-2 ml-5 ",
       rejectClassName: "px-5 py-2",
       defaultFocus: "accept",
       accept,
@@ -61,7 +61,8 @@ export default function Navbar() {
       <Menubar
         start={start}
         end={end}
-        className="fixed top-0 w-full px-10 py-2 z-50 bg-blue-500 shadow-gray-400 shadow-sm rounded-none"
+
+        className="w-full h-16 px-10 py-2 z-50 bg-primary shadow-gray-400 shadow-sm rounded-none"
       />
     </>
   );

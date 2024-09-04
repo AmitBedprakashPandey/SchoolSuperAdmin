@@ -46,6 +46,7 @@ export const updatePartyLogin = createAsyncThunk(
       if (response.status === 302) {
         return rejectWithValue(response.data);
       }
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -96,7 +97,8 @@ export const loginSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.error = action.payload.response?.data?.error;
-      });
+      })
+      
   },
 });
 

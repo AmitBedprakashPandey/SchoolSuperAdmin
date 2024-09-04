@@ -28,7 +28,7 @@ export default function Home() {
     label:"Dashborad",
     url:"/",
     className: `${
-      param.pathname === "/" ? "bg-blue-500 " : ""
+      param.pathname === "/" ? "bg-primary " : ""
     } `,
     labelClassName: `${
       param.pathname === "/" ? "text-white " : "text-black"
@@ -54,7 +54,7 @@ export default function Home() {
         />
       ),
       className: `${
-        param.pathname === "/school" ? "bg-blue-500 " : ""
+        param.pathname === "/school" ? "bg-primary " : ""
       } `,
       url: "school",
     },
@@ -71,7 +71,7 @@ export default function Home() {
         />
       ),
       className: `${
-        param.pathname === "/backup" ? "bg-blue-500 " : ""
+        param.pathname === "/backup" ? "bg-primary " : ""
       } `,
       url: "backup",
     },
@@ -80,7 +80,7 @@ export default function Home() {
     <>
       <Navbar />
       <DeviceValidation />
-      <div className="flex gap-3 mt-14">
+      <div className="flex gap-3">
         <div className="flex-1">
           <div className="relative w-72 h-full p-0 rounded-none  shadow-gray-500 shadow-md">
             <PanelMenu
