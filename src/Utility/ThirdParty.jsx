@@ -109,7 +109,7 @@ export default function ThirdParty({ data }) {
     <>
       <Toast ref={toast} />
       <div className="flex justify-center">
-        <div className="w-auto relative  border border-slate-300 shadow-md shadow-slate-500 p-5 rounded-md">
+        <div className="">
 
         
       <div className="flex gap-3">
@@ -118,9 +118,9 @@ export default function ThirdParty({ data }) {
             id="schoolname"
             value={data?.name}
             disabled
-            className="w-full border-gray-300 border px-2 py-3"
+            className="w-full border-slate-300 dark:text-white dark:bg-slate-700 border px-2 py-3"
           />
-          <label htmlFor="schoolname">School Name</label>
+          <label htmlFor="schoolname" className="dark:text-white">School Name</label>
         </span>
       </div>
       <span className="p-float-label mt-7">
@@ -130,9 +130,9 @@ export default function ThirdParty({ data }) {
           autoComplete="email"
           name="email"
           onChange={formHandler}
-          className="w-full border-gray-300 border px-2 py-3"
+          className="w-full border-slate-300 dark:text-white dark:bg-slate-700 border px-2 py-3"
         />
-        <label htmlFor="email">
+        <label htmlFor="email" className="dark:text-white">
           Username id <span className="text-red-500">*</span>
         </label>
       </span>
@@ -147,9 +147,9 @@ export default function ThirdParty({ data }) {
               onChange={formHandler}
               disabled
               feedback={false}
-              className="w-full pl-2 border-gray-300 border  h-12 rounded-md"
+              className="w-full pl-2 border-slate-300 border dark:text-white dark:bg-slate-700  h-12 rounded-md"
             />
-            <label htmlFor="ogpass">Original Password</label>
+            <label htmlFor="ogpass" className="dark:text-white">Original Password</label>
           </span>
           <span className="p-float-label mt-7 w-full">
             <Password
@@ -160,10 +160,10 @@ export default function ThirdParty({ data }) {
               onChange={formHandler}
               feedback={false}
               toggleMask
-              inputClassName="w-96  h-12 p-3 border-gray-300 border rounded-md"
+              inputClassName="w-96  h-12 p-3 border-slate-300 dark:text-white dark:bg-slate-700 border rounded-md"
               className=""
             />
-            <label htmlFor="newpass">Enter New Password</label>
+            <label htmlFor="newpass" className="dark:text-white">Enter New Password</label>
           </span>
         </>
       ) : (
@@ -175,11 +175,11 @@ export default function ThirdParty({ data }) {
             autoComplete="current-password"
             onChange={formHandler}
             feedback={false}
-            inputClassName="w-96  h-12 p-3 border-gray-300 border rounded-md"
+            inputClassName="w-96  h-12 p-3 border-slate-300 dark:text-white dark:bg-slate-700 border rounded-md"
             toggleMask
             className="w-full"
           />
-          <label htmlFor="pass">Enter Password</label>
+          <label htmlFor="pass" className="dark:text-white">Enter Password</label>
         </span>
       )}
 
@@ -191,7 +191,7 @@ export default function ThirdParty({ data }) {
           onChange={(e) => setChecked(e.checked)}
           checked={checked}
         ></Checkbox>
-        <label htmlFor="address">Active</label>
+        <label htmlFor="address" className="dark:text-white">Active</label>
       </span>
       {formData?.auth ? (
         <Button

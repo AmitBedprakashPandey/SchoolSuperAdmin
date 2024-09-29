@@ -23,20 +23,26 @@ export default function SchoolDasboard({ data }) {
   const [tabNm,setTabNm] =useState('school');
   return (
     <>
-      <TabView>
-        <TabPanel header={<span onClick={()=>setTabNm('school')} className={`${tabNm === 'school' ?  'border-b-2' : 'border-none' } border-black pb-3`}>Update School</span>}>
+      <TabView 
+      panelContainerClassName="dark:text-white dark:bg-slate-700"
+      >
+        <TabPanel header={<span onClick={()=>setTabNm('school')} className={`${tabNm === 'school' ?  'border-b-2' : 'border-none' }  border-black dark:border-white pb-3`}>Update School</span>}>
+          <div className="flex justify-center">
+          <div className="w-96">
           <SchoolForm label="u" data={data} />
+          </div>
+          </div>
         </TabPanel>
-        <TabPanel header={<span onClick={()=>setTabNm('tracher')} className={`${tabNm === 'tracher' ?  'border-b-2' : 'border-none' } border-black pb-3`}>Tracher</span>}>
+        <TabPanel header={<span onClick={()=>setTabNm('tracher')} className={`${tabNm === 'tracher' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-3`}>Tracher</span>}>
           <TeacherTab schoolid={data} />
         </TabPanel>
-        <TabPanel header={<span onClick={()=>setTabNm('Third Party')} className={`${tabNm === 'Third Party' ?  'border-b-2' : 'border-none' } border-black pb-3`}>Third Party</span>}>
+        <TabPanel header={<span onClick={()=>setTabNm('Third Party')} className={`${tabNm === 'Third Party' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-3`}>Third Party</span>}>
           <ThirdParty data={data} />
         </TabPanel>
-        <TabPanel header={<span onClick={()=>setTabNm('Template')} className={`${tabNm === 'Template' ?  'border-b-2' : 'border-none' } border-black pb-3`}>ICard Template</span>}>
+        <TabPanel header={<span onClick={()=>setTabNm('Template')} className={`${tabNm === 'Template' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-3`}>ICard Template</span>}>
           <ImageTest data={data?._id} />
         </TabPanel>
-        <TabPanel header={<span onClick={()=>setTabNm('admin')} className={`${tabNm === 'admin' ?  'border-b-2' : 'border-none' } border-black pb-3`}>School Admin</span>}>
+        <TabPanel header={<span onClick={()=>setTabNm('admin')} className={`${tabNm === 'admin' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-3`}>School Admin</span>}>
           <RegisterForm data={data} />
         </TabPanel>
       </TabView>
@@ -161,7 +167,7 @@ const RegisterForm = ({ data }) => {
     <>
       <Toast ref={toast} />
       <div className="flex justify-center">
-      <div className="flex flex-col shadow-slate-500 shadow-md border border-slate-400 p-5">
+      <div className="">
         <form>
           <div className="flex gap-3 w-96">
             <span className="p-float-label mt-7 w-full">
@@ -171,7 +177,7 @@ const RegisterForm = ({ data }) => {
                 name="email"
                 onChange={formHandler}
                 disabled
-                className="w-full border-gray-300 border px-2 py-3"
+                className="w-full border-slate-300 dark:bg-slate-700 dark:text-white dark:disabled:text-white border px-2 py-3"
               />
             </span>
           </div>
@@ -182,9 +188,9 @@ const RegisterForm = ({ data }) => {
               autoComplete="email"
               name="email"
               onChange={formHandler}
-              className="w-full border-gray-300 border px-2 py-3"
+              className="w-full border-slate-300 dark:bg-slate-700 dark:text-white border px-2 py-3"
             />
-            <label htmlFor="email">Username</label>
+            <label htmlFor="email" className="dark:text-white">Username</label>
           </span>
           {formData?.auth ? (
             <>
@@ -197,9 +203,9 @@ const RegisterForm = ({ data }) => {
                   onChange={formHandler}
                   feedback={false}
                   disabled
-                  className="w-full pl-2 border-gray-300 border  h-12 rounded-md"
+                  className="w-full pl-2 dark:bg-slate-700 dark:text-white border-slate-300 border  h-12 rounded-md"
                 />
-                <label htmlFor="ogpass">Original Password</label>
+                <label htmlFor="ogpass" className="dark:text-white">Original Password</label>
               </span>
               <span className="p-float-label mt-7">
                 <FloatLabel>
@@ -211,10 +217,10 @@ const RegisterForm = ({ data }) => {
                     onChange={formHandler}
                     feedback={false}
                     toggleMask
-                    inputClassName="pl-3 h-12 w-96"
-                    className="border-gray-300 border rounded-md"
+                    inputClassName="pl-3 h-12 w-96 dark:bg-slate-700 dark:text-white"
+                    className="border-slate-300 dark:bg-slate-700 dark:text-white border rounded-md"
                   />
-                  <label htmlFor="newpass">Enter New Password</label>
+                  <label htmlFor="newpass" className="dark:text-white">Enter New Password</label>
                 </FloatLabel>
               </span>
             </>
@@ -227,11 +233,11 @@ const RegisterForm = ({ data }) => {
                 onChange={formHandler}
                 feedback={false}
                 autoComplete="new-password"
-                inputClassName="pl-3 h-12 w-96"
-                className="border-gray-300 border rounded-md"
+                inputClassName="pl-3 h-12 w-96 dark:bg-slate-700 dark:text-white"
+                className="border-slate-300 border dark:bg-slate-700 dark:text-white rounded-md"
                 toggleMask
               />
-              <label htmlFor="pass">Enter Password</label>
+              <label htmlFor="pass" className="dark:text-white">Enter Password</label>
             </span>
           )}
           <div className=" flex gap-3 mt-7 hidden">
@@ -243,10 +249,10 @@ const RegisterForm = ({ data }) => {
                   dateFormat="dd/mm/yy"
                   inputClassName="w-full pl-3"
                   onChange={(e) => setStartDate(e.value)}
-                  className="w-full border-gray-300 border  h-12 rounded-md"
+                  className="w-full border-slate-300 border dark:bg-slate-700 dark:text-white  h-12 rounded-md"
                   showIcon
                 />
-                <label htmlFor="start_date">Start Expired Date</label>
+                <label htmlFor="start_date" className="dark:text-white">Start Expired Date</label>
               </FloatLabel>
             </span>
             <span className="w-full">
@@ -256,10 +262,10 @@ const RegisterForm = ({ data }) => {
                   value={endDate}
                   onChange={(e) => setEndDate(e.value)}
                   dateFormat="dd/mm/yy"
-                  inputClassName="w-full pl-3"
-                  className="w-full border-gray-300 border  h-12 rounded-md"
+                  inputClassName="w-full pl-3 dark:bg-slate-700 dark:text-white"
+                  className="w-full border-slate-300 border dark:bg-slate-700 dark:text-white  h-12 rounded-md"
                 />
-                <label htmlFor="end_date">End Expired Date</label>
+                <label htmlFor="end_date" className="dark:text-white">End Expired Date</label>
               </FloatLabel>
             </span>
           </div>

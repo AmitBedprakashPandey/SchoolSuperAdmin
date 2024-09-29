@@ -2,23 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-.p-datatable .p-datatable-thead>tr>th {
-    padding: 5px 15px;
+.p-inputtext {
+    box-shadow: none;
 }
 
-.p-column-filter-menu-button,
-.p-column-filter-clear-button {
-    display: none;
+.p-button {
+    box-shadow: none;
 }
 
-.p-column-filter-element .p-inputtext {
-    /* border: 1px solid; */
-    height: 40px;
-    padding-left: 5px;
-    display: flex;
+.p-datatable .p-inputtext {
+    border: 1px solid silver;
+}
+
+.p-datatable .p-sortable-column.p-highlight {
+    background-color: transparent;
+}
+
+.p-datatable .p-inputtext {
+    padding: 0 5px;
 
 }
 
-.p-column-filter-element .p-inputtext::placeholder {
-    font-weight: 400;
+.p-checkbox.p-highlight .p-checkbox-box {
+    background-color: blue;
 }
+
+/* .p-datatable .p-selectable-row,
+.p-datatable-scrollable,
+.p-datatable-header,
+.p-datatable-footer,
+.p-filter-column {
+    background-color: #fff !important;
+    color: black;
+}
+
+.p-tabview-nav-link,
+.p-tabview-nav {
+    background-color: #fff !important;
+    color: black;
+}
+
+.p-dropdown-label {
+    background-color: #fff !important;
+    color: black;
+}
+
+/* Dark Mode styles */
+
+/* @media (prefers-color-scheme: dark) {
+
+    .p-datatable .p-selectable-row,
+    .p-datatable-scrollable,
+    .p-datatable-header,
+    .p-datatable-footer,
+    .p-filter-column {
+        background-color: #334155 !important;
+        color: white;
+    }
+
+    .p-tabview-nav-link,
+    .p-tabview-nav {
+        background-color: #334155 !important;
+        color: white;
+    }
+
+    .p-dropdown-label {
+        background-color: #334155 !important;
+        color: white;
+    }
+
+}  */

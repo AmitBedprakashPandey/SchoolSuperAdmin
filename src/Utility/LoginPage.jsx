@@ -27,7 +27,7 @@ export default function LoginPage() {
   }, [navigate]);
 
   const onLogin = (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
     dispatch(loginUser(formData)).then(() => {
       navigate("/");
     });

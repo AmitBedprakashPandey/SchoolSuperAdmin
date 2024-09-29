@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { getAllSchool } from "../Store/Slice/SchoolSlice";
 import SchoolDasboard from "../Utility/SchoolDasboard";
 import SchoolForm from "../Utility/SchoolForm";
+import { PiPlus } from "react-icons/pi";
 export default function School() {
   const [selectSchool, setSelectSchool] = useState();
   const [visible, setVisible] = useState(false);
@@ -95,107 +96,140 @@ export default function School() {
     <div className="flex justify-between items-center">
       <span className="text-md text-900 font-bold">School List</span>
       <Button
+        icon={<PiPlus />}
+        label="Create"
+        className="bg-blue-500 gap-2 hover:bg-blue-700 duration-300 px-4 py-2 text-white"
         onClick={() => {
           setVisible(true);
           setLable("s");
         }}
-        label="Create School"
-        className="bg-blue-500 hover:bg-blue-700 duration-300 px-4 py-2 text-white"
       />
     </div>
   );
 
-  const footer = `In total there are ${School ? School.length : 0} Schools.`;
+  const footer = `Total School : ${School ? School.length : 0}`;
 
   return (
     <>
       <Dialog
         header={"Create School"}
+        draggable={false}
         visible={visible}
         onHide={() => setVisible(false)}
-        style={{ width: "50vh" }}
+        className="w-96 "
+        headerClassName="dark:text-white dark:bg-slate-700"
+        contentClassName="dark:bg-slate-700"
       >
         <SchoolForm label={lable} close={() => setVisible(false)} />
       </Dialog>
 
       <Dialog
-        header={selectSchool?.name + " Dashboard"}
+        header={`Dashboard - ( ${selectSchool?.name} )`}
         visible={visible2}
         onHide={() => {
           setVisible2(false);
           setSelectSchool();
         }}
         maximized
+        className="dark:bg-slate-700"
+             headerClassName="dark:text-white dark:bg-slate-700"
+        contentClassName="dark:bg-slate-700"
       >
         <SchoolDasboard data={selectSchool} />
       </Dialog>
-<div className="flex-1">
 
-      <DataTable
-        value={School}
-        header={header}
-        dataKey="_id"
-        stripedRows
-        filterDisplay="row"
-        filters={filters}
-        tableStyle={{  }}
-        className="h-full"
-        selectionMode="single"
-        footer={footer}
-      
-        selection={selectSchool}
-        rows={8}
-        paginator
-        onSelectionChange={(e) => {
-          setSelectSchool(e.value);
-          setVisible2(true);
-        }}
-      >
-        <Column
-          filter
-          filterPlaceholder="Search"
-          field="name"
-          header="School Name"
-          className="w-80"
-        ></Column>
-        <Column field="address" header="Address" className="w-[20rem]"></Column>
-        <Column
-          filter
-          field="city"
-          header="City"
-          className="w-52"
-          filterPlaceholder="Search"
-        ></Column>
-        <Column
-          filter
-          field="state"
-          header="State"
-          className="w-52"
-          filterPlaceholder="Search"
-        ></Column>
-
-        <Column
-          field="office1"
-          header="Office Number"
-          className="w-[12rem]"
-        ></Column>
-        <Column
-          field="office2"
-          header="Office Number"
-          className="w-[12rem]"
-        ></Column>
-        <Column
-          field="status"
-          header="Status"
-          showFilterMenu={false}
-          filterMenuStyle={{ width: "8rem" }}
-          style={{ minWidth: "8rem" }}
-          body={statusBodyTemplate}
-          filter
-          filterElement={statusRowFilterTemplate}
-        />
-      </DataTable>
-  </div>
+      <div className="flex-1">
+        <DataTable
+          value={School}
+          header={header}
+          size="small"
+          dataKey="_id"
+          stripedRows
+          filterDisplay="row"
+          filters={filters}
+          selectionMode="single"
+          footer={footer}
+          rows={10}
+          scrollable
+          scrollHeight="80vh"
+          selection={selectSchool}
+          rowClassName={"border-b "}
+          onSelectionChange={(e) => {
+            setSelectSchool(e.value);
+            setVisible2(true);
+          }}
+          className="h-full bg-white border-slate-700 dark:text-white"
+        >
+          <Column
+            header="#"
+            headerClassName="text-xs "
+            bodyClassName="px-4 text-xs capitalize "
+            className="w-8"
+            body={(rowData, options) => options.rowIndex + 1}
+          ></Column>
+          <Column
+            filter
+            filterPlaceholder="Search"
+            field="name"
+            showFilterMenu={false}
+            headerClassName="text-xs "
+            bodyClassName="px-4 text-sm  "
+            header="School Name"
+            className="w-56 capitalize"
+          ></Column>
+          <Column
+            field="address"
+            header="Address"
+            headerClassName="text-xs "
+            bodyClassName="px-4 text-sm   capitalize"
+            className="w-64"
+          ></Column>
+          <Column
+            filter
+            field="city"
+            header="City"
+            showFilterMenu={false}
+            headerClassName="text-xs "
+            bodyClassName="px-4 text-sm   capitalize"
+            className="w-40"
+            filterPlaceholder="Search"
+          ></Column>
+          <Column
+            filter
+            field="state"
+            header="State"
+            headerClassName="text-xs "
+            showFilterMenu={false}
+            bodyClassName="px-4 text-sm   capitalize"
+            className="w-40"
+            filterPlaceholder="Search"
+          ></Column>
+          <Column
+            field="office1"
+            header="Office No."
+            headerClassName="text-xs "
+            bodyClassName="px-4 text-sm   capitalize"
+            className="w-40"
+          ></Column>
+          <Column
+            field="office2"
+            header="Office No."
+            headerClassName="text-xs "
+            bodyClassName="px-4 text-sm   capitalize"
+            className="w-40"
+          ></Column>
+          <Column
+            field="status"
+            header="Status"
+            headerClassName="text-xs "
+            bodyClassName="px-4 text-sm   capitalize"
+            className="w-40"
+            showFilterMenu={false}
+            body={statusBodyTemplate}
+            sortable
+          />
+        </DataTable>
+      </div>
     </>
   );
 }

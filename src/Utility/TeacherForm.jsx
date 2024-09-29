@@ -107,6 +107,8 @@ export default function TeacherForm({ label, data }) {
     <>
       {/* {error && showErrorToast(error)} */}
       <Toast ref={toast} />
+      <div className="dark:text-white dark:bg-slate-700">
+
       <div className="">
         <div className="flex gap-3">
           <span className="p-float-label mt-7 w-full">
@@ -115,9 +117,9 @@ export default function TeacherForm({ label, data }) {
               name="name"
               value={formData?.name}
               onChange={formHandler}
-              className="w-full border-gray-300 border px-2 py-3"
+              className="w-full border-slate-300 border px-2 py-3 dark:text-white dark:bg-slate-700"
             />
-            <label htmlFor="address">Enter Name <span className="text-red-500">*</span></label>
+            <label htmlFor="address" className="dark:text-white">Enter Name <span className="text-red-500">*</span></label>
           </span>
           <span className="p-float-label mt-7 w-full">
             <InputText
@@ -125,9 +127,9 @@ export default function TeacherForm({ label, data }) {
               name="lastnm"
               value={formData?.lastnm}
               onChange={formHandler}
-              className="w-full border-gray-300 border px-2 py-3"
+              className="w-full border-slate-300 border px-2 py-3 dark:text-white dark:bg-slate-700"
             />
-            <label htmlFor="address">Last Name <span className="text-red-500">*</span></label>
+            <label htmlFor="address" className="dark:text-white">Last Name <span className="text-red-500">*</span></label>
           </span>
         </div>
         <span className="p-float-label mt-7">
@@ -136,9 +138,9 @@ export default function TeacherForm({ label, data }) {
             name="address"
             value={formData?.address}
             onChange={formHandler}
-            className="w-full border-gray-300 border px-2 py-3"
+            className="w-full border-slate-300 border px-2 py-3 dark:text-white dark:bg-slate-700"
           />
-          <label htmlFor="address">Address</label>
+          <label htmlFor="address" className="dark:text-white">Address</label>
         </span>
 
         <span className="p-float-label mt-7">
@@ -148,10 +150,10 @@ export default function TeacherForm({ label, data }) {
             value={formData?.mobile}
             onChange={(e) => formHandler(e.originalEvent)}
             useGrouping={false}
-            inputClassName="pl-2"
-            className="w-full h-12 rounded-lg  border-gray-300 border"
+            inputClassName="pl-2 border border-slate-300 dark:text-white dark:bg-slate-700"
+            className="w-full h-12 rounded-lg"
           />
-          <label htmlFor="address">Enter Mobile <span className="text-red-500">*</span></label>
+          <label htmlFor="address" className="dark:text-white">Enter Mobile <span className="text-red-500">*</span></label>
         </span>
 
         <div className="flex gap-2 mt-7">
@@ -164,9 +166,10 @@ export default function TeacherForm({ label, data }) {
               name="classs"
               optionLabel="class"
               optionValue="class"
-              className="w-full border-gray-300 border"
+              
+              className="w-full border-gray-300 border border-slate-300 dark:text-white dark:bg-slate-700"
             />
-            <label htmlFor="dd-clas">Select Class <span className="text-red-500">*</span></label>
+            <label htmlFor="dd-clas" className="dark:text-white">Select Class <span className="text-red-500">*</span></label>
           </span>
           <span className="p-float-label w-full md:w-14rem">
             <Dropdown
@@ -177,9 +180,9 @@ export default function TeacherForm({ label, data }) {
               options={Sections}
               optionLabel="section"
               optionValue="section"
-              className="w-full border-gray-300 border"
+              className="w-full border-gray-300 border border-slate-300 dark:text-white dark:bg-slate-700"
             />
-            <label htmlFor="dd-section">Select Section <span className="text-red-500">*</span></label>
+            <label htmlFor="dd-section" className="dark:text-white">Select Section <span className="text-red-500">*</span></label>
           </span>
         </div>
         <div className=" flex justify-center mt-7">
@@ -191,7 +194,7 @@ export default function TeacherForm({ label, data }) {
               onChange={(e) => setChecked(e.checked)}
               checked={checked}
             ></Checkbox>
-            <label htmlFor="address">Active</label>
+            <label htmlFor="address" className="dark:text-white">Active</label>
           </span>
         </div>
         {label === "s" ? (
@@ -216,6 +219,7 @@ export default function TeacherForm({ label, data }) {
             label="Update"
           />
         )}
+      </div>
       </div>
     </>
   );

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllTeacherBySchool } from "../Store/Slice/TeacherSlice";
 import TeacherLogin from "../Utility/TeacherLoginUpdate";
 import TeacherForm from "./TeacherForm";
+import { PiPlus } from "react-icons/pi";
 export default function TeacherTab({ schoolid }) {
   const [selectSchool, setSelectSchool] = useState();
   const [visible, setVisible] = useState(false);
@@ -79,20 +80,19 @@ export default function TeacherTab({ schoolid }) {
 
   const header = (
     <div className="flex justify-between items-center">
-      <span className="text-xl text-900 font-bold">Teacher List</span>
+      <span className="text-sm font-bold">Teacher List</span>
       <Button
+        icon={<PiPlus />}
         onClick={() => {
           setVisible(true);
           setLable("s");
         }}
         label="Create Teacher"
-        className="bg-blue-500 hover:bg-blue-700 duration-300 px-5 py-3 text-white"
+        className="gap-2 text-sm bg-blue-500 hover:bg-blue-700 duration-300 px-3 py-2 text-white"
       />
     </div>
   );
-  const footer = `In total there are ${
-    Teacher ? Teacher.length : 0
-  }  Teacher's.`;
+  const footer = `Total   Teacher : ${Teacher ? Teacher.length : 0}`;
 
   return (
     <>
@@ -101,6 +101,7 @@ export default function TeacherTab({ schoolid }) {
         visible={visible}
         onHide={() => setVisible(false)}
         style={{ width: "50vh" }}
+        draggable={false}
       >
         <TeacherForm
           data={schoolid}
@@ -110,13 +111,15 @@ export default function TeacherTab({ schoolid }) {
       </Dialog>
 
       <Dialog
-        header={selectSchool?.name + " Dashboard"}
+        header={`${selectSchool?.name} ${selectSchool?.lastnm}`}
         visible={visible2}
         onHide={() => {
           setSelectSchool();
           setVisible2(false);
         }}
         maximized
+          headerClassName="dark:text-white dark:bg-slate-700"
+        contentClassName="dark:bg-slate-700"
       >
         <TeacherLogin data={selectSchool} />
       </Dialog>
@@ -124,59 +127,69 @@ export default function TeacherTab({ schoolid }) {
       <DataTable
         value={Teacher}
         header={header}
+        size="small"
         dataKey="_id"
         stripedRows
         filterDisplay="row"
         filters={filters}
-        tableStyle={{ minWidth: "60rem" }}
         selectionMode="single"
         footer={footer}
         selection={selectSchool}
         rows={10}
-        paginator
+        className="text-xs"
+        sortable
+        scrollHeight="70vh"
         onSelectionChange={(e) => {
           setSelectSchool(e.value);
           setVisible2(true);
         }}
       >
         <Column
+          header="#"
+          body={(newData, option) => option.rowIndex + 1}
+          className="w-10"
+        ></Column>
+        <Column
           filter
           filterPlaceholder="First Name"
           field="name"
+          showFilterMenu={false}
           header="First Name"
-          className="w-[20rem]"
+          className="w-72"
         ></Column>
         <Column
           filter
           filterPlaceholder="Search school"
           field="lastnm"
+          showFilterMenu={false}
           header="Last Name"
-          className="w-[20rem]"
+          className="w-72"
         ></Column>
-        <Column field="address" header="Address" className="w-[20rem]"></Column>
+        <Column field="address" header="Address" className="w-96"></Column>
         <Column
           filter
           field="classs"
           header="Class"
-          className="w-[10rem]"
+          showFilterMenu={false}
+          className="w-40"
           filterPlaceholder="Search city"
         ></Column>
         <Column
           filter
           field="section"
           header="Section"
+          showFilterMenu={false}
           className="w-[10rem]"
           filterPlaceholder="Search state"
         ></Column>
-
         <Column
           field="status"
           header="Status"
+          sortable
           showFilterMenu={false}
           filterMenuStyle={{ width: "8rem" }}
           style={{ minWidth: "8rem" }}
           body={statusBodyTemplate}
-          filter
           filterElement={statusRowFilterTemplate}
         />
       </DataTable>

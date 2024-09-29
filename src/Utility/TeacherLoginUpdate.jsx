@@ -25,14 +25,22 @@ export default function TeacherLoginUpdate({ data }) {
   }, [data, dispatch]);
   return (
     <>
-      <TabView>
+      <TabView
+      panelContainerClassName="dark:text-white dark:bg-slate-700"
+      >
         <TabPanel
+          headerClassName="text-sm"
           header="Update Teacher"
           leftIcon={<BiDetail className="mr-3" />}
         >
-          <TeacherFrom data={data} label={"u"} />
+          <div className="flex justify-center   dark:text-white dark:bg-slate-700">
+            <div className="w-96">
+              <TeacherFrom data={data} label={"u"} />
+            </div>
+          </div>
         </TabPanel>
         <TabPanel
+          headerClassName="text-sm"
           header="Create Teacher login"
           leftIcon={<BiGroup className="mr-3" />}
         >
@@ -139,115 +147,116 @@ const RegisterForm = ({ data }) => {
     <>
       <Toast ref={toast} />
       <div className="flex justify-center">
-      <div className="relative border border-slate-300 shadow-md shadow-slate-500 p-5 rounded-md">
-
-      
-      <div className="w-96 flex gap-3">
-        <span className="p-float-label mt-7 w-full">
-          <InputText
-            id="firstname"
-            value={data?.name}
-
-            disabled
-            className="w-full border-gray-300 border px-2 py-3"
-          />
-          <label htmlFor="firstname">First Name</label>
-        </span>
-        <span className="p-float-label mt-7 w-full">
-          <InputText
-            id="lastname"
-            value={data?.lastnm}
-            disabled
-            className="w-full border-gray-300 border px-2 py-3"
-          />
-          <label htmlFor="lastname">Last Name</label>
-        </span>
-      </div>
-      <span className="p-float-label mt-7">
-        <InputText
-          id="email"
-          value={formData?.email}
-          name="email"
-          autoComplete="email"
-          onChange={formHandler}
-          className="w-96 border-gray-300 border px-2 py-3"
-        />
-        <label htmlFor="email">Username id <span className="text-red-500">*</span></label>
-      </span>
-      {formData?.auth ? (
-        <div className="w-full">
-          <span className="p-float-label mt-7 w-full">
+        <div className="w-96">
+          <div className="w-96 flex gap-3">
+            <span className="p-float-label mt-7 w-full">
+              <InputText
+                id="firstname"
+                value={data?.name}
+                disabled
+                className="w-full border-slate-300 border px-2 py-3"
+              />
+              <label htmlFor="firstname">First Name</label>
+            </span>
+            <span className="p-float-label mt-7 w-full">
+              <InputText
+                id="lastname"
+                value={data?.lastnm}
+                disabled
+                className="w-full border-slate-300 border px-2 py-3"
+              />
+              <label htmlFor="lastname">Last Name</label>
+            </span>
+          </div>
+          <span className="p-float-label mt-7">
             <InputText
-              id="ogpass"
-              value={formData?.ogpass}
-              name="ogpass"
-              autoComplete="current-password"
+              id="email"
+              value={formData?.email}
+              name="email"
+              autoComplete="email"
               onChange={formHandler}
-              feedback={false}
-              disabled
-              className="w-96 pl-2 border-gray-300 border  h-12 rounded-md"
+              className="w-96 border-slate-300 border px-2 py-3"
             />
-            <label htmlFor="ogpass">Orignal Password</label>
+            <label htmlFor="email">
+              Username id <span className="text-red-500">*</span>
+            </label>
           </span>
-          <span className="p-float-label mt-7 w-full">
-            <Password
-              id="newpass"
-              value={formData?.newpass}
-              name="newpass"
-              autoComplete="new-password"
-              onChange={formHandler}
-              feedback={false}
-              toggleMask
-              inputClassName="w-96 h-12 pl-3 border-gray-300 border"
-              
-              className="rounded-md"
+          {formData?.auth ? (
+            <div className="w-full">
+              <span className="p-float-label mt-7 w-full">
+                <InputText
+                  id="ogpass"
+                  value={formData?.ogpass}
+                  name="ogpass"
+                  autoComplete="current-password"
+                  onChange={formHandler}
+                  feedback={false}
+                  disabled
+                  className="w-96 pl-2 border-slate-300 border  h-12 rounded-md"
+                />
+                <label htmlFor="ogpass">Orignal Password</label>
+              </span>
+              <span className="p-float-label mt-7 w-full">
+                <Password
+                  id="newpass"
+                  value={formData?.newpass}
+                  name="newpass"
+                  autoComplete="new-password"
+                  onChange={formHandler}
+                  feedback={false}
+                  toggleMask
+                  inputClassName="w-96 h-12 pl-3 border-slate-300 border"
+                  className="rounded-md"
+                />
+                <label htmlFor="newpass">Enter New Password</label>
+              </span>
+            </div>
+          ) : (
+            <span className="p-float-label mt-7 w-full">
+              <Password
+                id="pass"
+                value={formData?.pass}
+                name="pass"
+                autoComplete="new-password"
+                onChange={formHandler}
+                feedback={false}
+                inputClassName="w-96 h-12 pl-3 border-slate-300 border"
+                className="rounded-md"
+                toggleMask
+              />
+              <label htmlFor="pass">
+                Enter Password <span className="text-red-500">*</span>
+              </label>
+            </span>
+          )}
+
+          <span className="flex justify-center gap-3 mt-7">
+            <Checkbox
+              id="status"
+              name="status"
+              className="outline-gray-300 outline outline-1 rounded-md"
+              onChange={(e) => setChecked(e.checked)}
+              checked={checked}
+            ></Checkbox>
+            <label htmlFor="address">Active</label>
+          </span>
+
+          {formData?.auth ? (
+            <Button
+              label="Update"
+              onClick={confirm2}
+              className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
             />
-            <label htmlFor="newpass">Enter New Password</label>
-          </span>
+          ) : (
+            <Button
+              label="Create"
+              onClick={confirm1}
+              disabled={formData?.email && formData?.pass ? false : true}
+              className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
+            />
+          )}
         </div>
-      ) : (
-        <span className="p-float-label mt-7 w-full">
-          <Password
-            id="pass"
-            value={formData?.pass}
-            name="pass"
-            autoComplete="new-password"
-            onChange={formHandler}
-            feedback={false}
-          inputClassName="w-96 h-12 pl-3 border-gray-300 border"
-           className="rounded-md"
-            toggleMask
-          />
-          <label htmlFor="pass">Enter Password <span className="text-red-500">*</span></label>
-        </span>
-      )}
-
-      <span className="flex justify-center gap-3 mt-7">
-        <Checkbox
-          id="status"
-          name="status"
-          className="outline-gray-300 outline outline-1 rounded-md"
-          onChange={(e) => setChecked(e.checked)}
-          checked={checked}
-        ></Checkbox>
-        <label htmlFor="address">Active</label>
-      </span>
-
-      {formData?.auth ? (
-        <Button
-          label="Update"
-          onClick={confirm2}
-          className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
-        />
-      ) : (
-        <Button
-          label="Create"
-          onClick={confirm1}
-          disabled={formData?.email && formData?.pass ? false : true}
-          className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
-        />
-      )}
-</div></div>
+      </div>
     </>
   );
 };
