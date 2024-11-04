@@ -16,11 +16,13 @@ export default function TeacherTab({ schoolid }) {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [lable, setLable] = useState();
-  const { Teacher } = useSelector((state) => state.Teacher);
+  const { Teacher } = useSelector((state) => state.Teacher);  
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllTeacherBySchool(schoolid?._id));
+    if (schoolid?._id) {
+      dispatch(getAllTeacherBySchool(schoolid._id));
+    }
   }, [dispatch, schoolid]);
 
   const [filters] = useState({
@@ -93,6 +95,8 @@ export default function TeacherTab({ schoolid }) {
     </div>
   );
   const footer = `Total   Teacher : ${Teacher ? Teacher.length : 0}`;
+
+  
 
   return (
     <>

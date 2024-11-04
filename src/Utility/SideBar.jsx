@@ -16,11 +16,11 @@ export default function SideBar({title,menuList}) {
         size="normal"
         className="font-bold uppercase"
       />
-          <h1 className="text-sm font-bold text-nowrap dark:text-white">{title}</h1>
+          <h1 className="text-xs font-bold text-nowrap dark:text-white">{title}</h1>
         </div>
         <SidebarContext.Provider>
           <div className="flex-1">
-            <PanelMenu model={menuList}/>
+            <PanelMenu  model={menuList}/>
           </div>
         </SidebarContext.Provider>
       </nav>

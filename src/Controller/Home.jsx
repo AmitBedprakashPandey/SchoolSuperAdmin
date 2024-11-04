@@ -23,7 +23,7 @@ export default function Home() {
           className="w-full dark:bg-slate-700 dark:hover:bg-slate-500  flex items-center gap-3 px-4 py-2 hover:bg-blue-200  duration-300 transition-all"
         >
           <span className="text-slate-500 text-2xl dark:text-white">{item?.icon}</span>
-          <label className="text-slate-500 text-sm font-semibold capitalize dark:text-white">
+          <label className="text-slate-500 text-xs font-semibold capitalize dark:text-white">
             {item?.label}
           </label>
         </Link>
@@ -35,24 +35,24 @@ export default function Home() {
     {
       label: "Dashborad",
       url: "dashboard",
-      icon: <MdSpeed />,
+      icon: <MdSpeed size={15}/>,
       template: itemTemplate,
     },
     {
       label: "School",
-      icon: <MdSchool />,
+      icon: <MdSchool size={15}/>,
       url: "school",
       template: itemTemplate,
     },
     {
       label: "Backup",
-      icon: <MdBackup />,
+      icon: <MdBackup size={15}/>,
       url: "backup",
       template: itemTemplate,
     },
   ];
   return (
-    <div className="flex h-screen w-screen bg-slate-200 dark:bg-slate-600">
+    <div className="flex h-screen w-screen relative bg-slate-200 dark:bg-slate-600">
       <div className="">
         <SideBar menuList={items} title={"School Management"} />
       </div>

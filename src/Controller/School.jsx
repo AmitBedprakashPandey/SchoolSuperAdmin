@@ -94,11 +94,11 @@ export default function School() {
 
   const header = (
     <div className="flex justify-between items-center">
-      <span className="text-md text-900 font-bold">School List</span>
+      <span className="text-xs text-900 font-bold">School List</span>
       <Button
         icon={<PiPlus />}
         label="Create"
-        className="bg-blue-500 gap-2 hover:bg-blue-700 duration-300 px-4 py-2 text-white"
+        className="bg-blue-500 gap-1.5 hover:bg-blue-700 duration-300 px-3 py-1.5 text-white text-xs"
         onClick={() => {
           setVisible(true);
           setLable("s");
@@ -107,7 +107,7 @@ export default function School() {
     </div>
   );
 
-  const footer = `Total School : ${School ? School.length : 0}`;
+  const footer = <div className="text-xs">Total School : {School ? School.length : 0}</div>
 
   return (
     <>
@@ -124,16 +124,17 @@ export default function School() {
       </Dialog>
 
       <Dialog
-        header={`Dashboard - ( ${selectSchool?.name} )`}
+        header={<div className="text-xs">Dashboard - ( {selectSchool?.name} )</div>}
         visible={visible2}
         onHide={() => {
           setVisible2(false);
           setSelectSchool();
         }}
         maximized
+        draggable={false}
         className="dark:bg-slate-700"
-             headerClassName="dark:text-white dark:bg-slate-700"
-        contentClassName="dark:bg-slate-700"
+             headerClassName="dark:text-white dark:bg-slate-700 p-2 border"
+        contentClassName="dark:bg-slate-700 p-0"
       >
         <SchoolDasboard data={selectSchool} />
       </Dialog>
@@ -158,7 +159,7 @@ export default function School() {
             setSelectSchool(e.value);
             setVisible2(true);
           }}
-          className="h-full bg-white border-slate-700 dark:text-white"
+          className="h-full dark:bg-black border-slate-700 dark:text-white"
         >
           <Column
             header="#"

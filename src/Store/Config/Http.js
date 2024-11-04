@@ -27,3 +27,4 @@ axiosInstance.defaults.headers.post["Content-Type"] = "application/json";
 axiosInstance.defaults.headers.put["Content-Type"] = "application/json";
 
 export default axiosInstance;
+

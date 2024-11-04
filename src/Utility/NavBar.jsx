@@ -51,29 +51,29 @@ export default function Navbar({ title, username }) {
 
   const start = (
     <div className="flex items-center gap-2">
-      <h1 className="font-medium capitalize  dark:text-white">{title}</h1>
+      <h1 className="font-medium  text-xs capitalize  dark:text-white">{title}</h1>
     </div>
   );
 
   const end = (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-3">
       {/* <div>
         {darkMode ? 
         
-        <PiSunFill size={25} className="dark:text-white cursor-pointer" onClick={()=>setDarkMode(!darkMode)} />  :
-        <PiMoonStarsFill size={25} className="cursor-pointer" onClick={()=>setDarkMode(!darkMode)}/>
+        <PiSunFill size={15} className="dark:text-white cursor-pointer" onClick={()=>setDarkMode(!darkMode)} />  :
+        <PiMoonStarsFill size={15} className="cursor-pointer" onClick={()=>setDarkMode(!darkMode)}/>
         }
       </div> */}
       <Avatar
-        label={username?.charAt(0)}
+        label={username?.charAt(0)}  
         shape="circle"
-        className="font-bold"
+        className="flex justify-center items-center w-5 h-5 text-xs"
       />
-      <p className="italic dark:text-white">{username}</p>
+      <p className="text-xs italic dark:text-white">{username}</p>
       <Badge
         value={"Logout"}
         onClick={confirm1}
-        className="cursor-pointer bg-white hover:bg-black hover:text-white duration-300 text-black"
+        className="cursor-pointer bg-gray hover:bg-black hover:text-white duration-300 text-white"
       />
     </div>
   );
@@ -85,7 +85,7 @@ export default function Navbar({ title, username }) {
       <Menubar
         start={start}
         end={end}
-        className="w-full dark:bg-slate-700 h-16 px-10 py-2 z-50 rounded-none shadow-slate-300 dark:shadow-none shadow-md"
+        className="w-full dark:bg-slate-700 px-10 py-1.5 z-50 rounded-none shadow-slate-300 dark:shadow-none shadow-md"
       />
     </>
   );

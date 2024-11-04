@@ -19,30 +19,32 @@ import {
   SchoolAdminFind,
   SchoolAdminUpdate,
 } from "../Store/Slice/AdminLoginSlice";
+import AdmitCardTemplate from "./AdmitCardTemplate";
 export default function SchoolDasboard({ data }) {
   const [tabNm,setTabNm] =useState('school');
   return (
     <>
-      <TabView 
-      panelContainerClassName="dark:text-white dark:bg-slate-700"
-      >
-        <TabPanel header={<span onClick={()=>setTabNm('school')} className={`${tabNm === 'school' ?  'border-b-2' : 'border-none' }  border-black dark:border-white pb-3`}>Update School</span>}>
+      <TabView panelContainerClassName="dark:text-white dark:bg-slate-700 p-0">
+        <TabPanel header={<span onClick={()=>setTabNm('school')} className={`${tabNm === 'school' ?  'border-b-2' : 'border-none' }  border-black dark:border-white pb-0.5 text-xs`}>Update School</span>}>
           <div className="flex justify-center">
           <div className="w-96">
           <SchoolForm label="u" data={data} />
           </div>
           </div>
         </TabPanel>
-        <TabPanel header={<span onClick={()=>setTabNm('tracher')} className={`${tabNm === 'tracher' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-3`}>Tracher</span>}>
+        <TabPanel header={<span onClick={()=>setTabNm('tracher')} className={`${tabNm === 'tracher' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-0.5 text-xs`}>Tracher</span>}>
           <TeacherTab schoolid={data} />
         </TabPanel>
-        <TabPanel header={<span onClick={()=>setTabNm('Third Party')} className={`${tabNm === 'Third Party' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-3`}>Third Party</span>}>
+        <TabPanel header={<span onClick={()=>setTabNm('Third Party')} className={`${tabNm === 'Third Party' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-0.5 text-xs`}>Third Party</span>}>
           <ThirdParty data={data} />
         </TabPanel>
-        <TabPanel header={<span onClick={()=>setTabNm('Template')} className={`${tabNm === 'Template' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-3`}>ICard Template</span>}>
+        <TabPanel header={<span onClick={()=>setTabNm('Template')} className={`${tabNm === 'Template' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-0.5 text-xs`}>ICard Template</span>}>
           <ImageTest data={data?._id} />
         </TabPanel>
-        <TabPanel header={<span onClick={()=>setTabNm('admin')} className={`${tabNm === 'admin' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-3`}>School Admin</span>}>
+        <TabPanel header={<span onClick={()=>setTabNm('AdmitCardTemplate')} className={`${tabNm === 'AdmitCardTemplate' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-0.5 text-xs`}>Admit Card Template</span>}>
+          <AdmitCardTemplate data={data?._id} />
+        </TabPanel>
+        <TabPanel header={<span onClick={()=>setTabNm('admin')} className={`${tabNm === 'admin' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-0.5 text-xs`}>School Admin</span>}>
           <RegisterForm data={data} />
         </TabPanel>
       </TabView>

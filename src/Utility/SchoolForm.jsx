@@ -7,7 +7,7 @@ import { Toast } from "primereact/toast";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createSchool, updateSchool } from "../Store/Slice/SchoolSlice";
-import { PiFloppyDisk } from "react-icons/pi";
+import { PiFloppyDisk, PiUpload, PiUploadDuotone } from "react-icons/pi";
 export default function SchoolForm({ label, data, close }) {
   const [formData, setFormData] = useState();
   const [checked, setChecked] = useState(false);
@@ -97,9 +97,9 @@ export default function SchoolForm({ label, data, close }) {
             name="name"
             value={formData?.name}
             onChange={formHandler}
-            className="w-full dark:bg-slate-500 dark:text-white  border-slate-300 border px-2 py-3"
+            className="w-full dark:bg-slate-500 dark:text-white  border-slate-300 border px-2 py-1.5 text-xs"
           />
-          <label htmlFor="schoolnm" className="dark:text-white">
+          <label htmlFor="schoolnm" className="dark:text-white text-xs">
             School Name <span className="text-red-500">*</span>
           </label>
         </span>
@@ -109,9 +109,9 @@ export default function SchoolForm({ label, data, close }) {
             name="address"
             value={formData?.address}
             onChange={formHandler}
-            className="w-full dark:bg-slate-500 dark:text-white  border-slate-300 border px-2 py-3"
+            className="w-full dark:bg-slate-500 dark:text-white  border-slate-300 border px-2 py-1.5 text-xs"
           />
-          <label htmlFor="address" className="dark:text-white">
+          <label htmlFor="address" className="dark:text-white text-xs">
             Address <span className="text-red-500">*</span>
           </label>
         </span>
@@ -120,14 +120,14 @@ export default function SchoolForm({ label, data, close }) {
             id="office1"
             useGrouping={false}
             name="office1"
-            inputClassName="pl-3 dark:bg-slate-500 dark:text-white"
+            inputClassName="pl-1.5 dark:bg-slate-500 dark:text-white text-xs"
             value={formData?.office1}
             autoComplete={false}
             onChange={(e) => formHandler(e.originalEvent)}
             aria-autocomplete="none"
-            className="border dark:bg-slate-500 dark:text-white  border-slate-300 h-12 w-full rounded-md"
+            className="border dark:bg-slate-500 dark:text-white  border-slate-300 h-8 w-full rounded-md text-xs"
           />
-          <label htmlFor="office1" className="dark:text-white">
+          <label htmlFor="office1" className="dark:text-white text-xs">
             Office Number <span className="text-red-500">*</span>
           </label>
         </span>
@@ -136,12 +136,12 @@ export default function SchoolForm({ label, data, close }) {
             id="office2"
             useGrouping={false}
             name="office2"
-            inputClassName="pl-3 dark:bg-slate-500 dark:text-white"
-            className="border dark:bg-slate-500 dark:text-white  border-slate-300 h-12 w-full rounded-md"
+            inputClassName="pl-1.5 dark:bg-slate-500 dark:text-white text-xs"
+            className="border dark:bg-slate-500 dark:text-white  border-slate-300 h-8 w-full rounded-md"
             value={formData?.office2}
             onChange={(e) => formHandler(e.originalEvent)}
           />
-          <label htmlFor="21" className="dark:text-white">Office Number</label>
+          <label htmlFor="21" className="dark:text-white text-xs">Office Number</label>
         </span>
         <div className="flex items-center gap-2 mt-7">
           <span className="p-float-label w-full md:w-14rem">
@@ -149,12 +149,12 @@ export default function SchoolForm({ label, data, close }) {
               id="state"
               useGrouping={false}
               name="state"
-              inputClassName="pl-3 "
+              inputClassName="pl-1.5 "
               value={formData?.state}
               onChange={formHandler}
-              className=" pl-3 dark:bg-slate-500 dark:text-white border-slate-300 border h-12 w-full rounded-md"
+              className=" pl-1.5 dark:bg-slate-500 dark:text-white text-xs border-slate-300 border h-8 w-full rounded-md"
             />
-            <label htmlFor="dd-state" className="dark:text-white">
+            <label htmlFor="dd-state" className="dark:text-white text-xs">
               State <span className="text-red-500">*</span>
             </label>
           </span>
@@ -164,9 +164,9 @@ export default function SchoolForm({ label, data, close }) {
               name="city"
               value={formData?.city}
               onChange={formHandler}
-              className="w-full dark:bg-slate-500 dark:text-white  border-slate-300 border px-2 py-3"
+              className="w-full dark:bg-slate-500 dark:text-white text-xs  border-slate-300 border px-2 py-1.5"
             />
-            <label htmlFor="city" className="dark:text-white">
+            <label htmlFor="city" className="dark:text-white text-xs">
               City <span className="text-red-500">*</span>
             </label>
           </span>
@@ -178,29 +178,33 @@ export default function SchoolForm({ label, data, close }) {
               value={formData?.pincode}
               maxLength={6}
               onChange={(e) => formHandler(e.originalEvent)}
-              inputClassName="w-full dark:bg-slate-500 dark:text-white  border-slate-300 border px-2 py-3"
+              inputClassName="w-full dark:bg-slate-500 dark:text-white border-slate-300 border px-2 py-1.5 text-xs"
             />
-            <label htmlFor="address" className="dark:text-white">
+            <label htmlFor="address" className="dark:text-white text-xs">
               Pincode <span className="text-red-500">*</span>
             </label>
           </span>
         </div>
         <div className=" flex justify-center mt-7">
-          <span className="flex gap-3">
+          <span className="flex items-center gap-1.5">
             <Checkbox
               id="address"
-              className="outline-gray-300  outline outline-1 rounded-md"
+              size={10}
+              className="outline-gray-300 outline outline-1 rounded-md"
+              
               onChange={(e) => setChecked(e.checked)}
               checked={checked}
             ></Checkbox>
             <label htmlFor="address" className="dark:text-white">Active</label>
           </span>
         </div>
+        <div className="w-full flex justify-center">
+
         {label === "s" ? (
           <Button
           icon={<PiFloppyDisk strokeWidth={5} />}
+          className="bg-green-700 hover:bg-green-700 text-white py-2 px-10 flex gap-2 justify-center items-center mt-5 text-xs"
             onClick={confirm1}
-            className="bg-green-700 text-white py-3 px-32 flex gap-3 justify-center items-center mt-5"
             label="Create"
             disabled={
               formData?.name &&
@@ -209,17 +213,19 @@ export default function SchoolForm({ label, data, close }) {
               formData?.state &&
               formData?.city &&
               formData?.pincode
-                ? false
+              ? false
                 : true
             }
-          />
-        ) : (
-          <Button
+            />
+          ) : (
+            <Button
             onClick={confirm2}
-            className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
+            icon={<PiUpload />}
+            className="bg-blue-600 hover:bg-blue-700 duration-300 text-white py-2 px-10 font-normal  text-xs mt-5 flex gap-2 justify-center items-center"
             label="Update"
           />
         )}
+        </div>
       </div>
     </>
   );
