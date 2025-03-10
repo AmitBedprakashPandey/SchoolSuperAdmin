@@ -12,13 +12,14 @@ import { Checkbox } from "primereact/checkbox";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Toast } from "primereact/toast";
-import { useLayoutEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   SchoolAdminCreate,
   SchoolAdminFind,
   SchoolAdminUpdate,
 } from "../Store/Slice/AdminLoginSlice";
+import { createPhotoNumber,getPhotoNumberBySchoolId,updatePhotoNumber } from "../Store/Slice/PhotoNumberSlice";
 import AdmitCardTemplate from "./AdmitCardTemplate";
 export default function SchoolDasboard({ data }) {
   const [tabNm,setTabNm] =useState('school');
@@ -46,6 +47,9 @@ export default function SchoolDasboard({ data }) {
         </TabPanel>
         <TabPanel header={<span onClick={()=>setTabNm('admin')} className={`${tabNm === 'admin' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-0.5 text-xs`}>School Admin</span>}>
           <RegisterForm data={data} />
+        </TabPanel>
+        <TabPanel header={<span onClick={()=>setTabNm('photno')} className={`${tabNm === 'photno' ?  'border-b-2' : 'border-none' } border-black dark:border-white pb-0.5 text-xs`}>Photo Serial Number</span>}>
+          <SerialNumber data={data} />
         </TabPanel>
       </TabView>
     </>
@@ -301,3 +305,143 @@ const RegisterForm = ({ data }) => {
     </>
   );
 };
+
+
+const SerialNumber=({data}) =>{
+  const [formData, setFormData] = useState();
+  const dispatch = useDispatch();
+  const {PhotoNumber,loading,message,error} = useSelector((state)=>state.PhotoNumber)
+  
+  const formHandler = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+      schoolid:data?._id
+    });
+  };
+
+  useEffect(()=>{
+    setFormData(PhotoNumber);
+
+  },[PhotoNumber])
+
+  useLayoutEffect(() => {
+    if (data) {
+      dispatch(getPhotoNumberBySchoolId(data?._id));
+    }
+  }, [dispatch, data]);
+
+  
+  const toast = useRef(null);
+
+  const showSuccessToast = (message) => {
+    toast.current.show({
+      severity: "success",
+      summary: "Success Message",
+      detail: message,
+      life: 3000,
+    });
+  };
+
+  const showErrorToast = (error) => {
+    toast.current.show({
+      severity: "info",
+      summary: "Error Message",
+      detail: error,
+      life: 3000,
+    });
+  };
+
+const onSave=useCallback(()=>{
+  dispatch(createPhotoNumber(formData));
+})
+
+const onUpdate=useCallback(()=>{
+  dispatch(updatePhotoNumber(formData));
+})
+
+  const confirm1 = () => {
+    confirmDialog({
+      message: "Are you sure you want to save ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      defaultFocus: "accept",
+      acceptClassName: "bg-blue-500 px-5 py-3 text-white",
+      rejectClassName: "px-5 py-3 mx-3 ",
+      accept: onSave,
+    });
+  };
+
+  const confirm2 = () => {
+    confirmDialog({
+      message: "Are you sure you want to update ?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      defaultFocus: "accept",
+      acceptClassName: "bg-blue-500 px-5 py-3 text-white",
+      rejectClassName: "px-5 py-3 mx-3 ",
+      accept: onUpdate,
+    });
+  };
+
+  return (
+    <>
+      <Toast ref={toast} />
+      <div className="flex justify-center">
+      <div className="">
+          <div className="flex gap-3 w-96">
+            <span className="p-float-label mt-7 w-full">
+              <InputText
+                id="schoolname"
+                value={data?.name}
+                name="email"
+                onChange={formHandler}
+                disabled
+                className="w-full border-slate-300 dark:bg-slate-700 dark:text-white dark:disabled:text-white border px-2 py-3"
+              />
+            </span>
+          </div>
+
+          <span className="p-float-label mt-7 w-96">
+            <InputText
+              id="prefix"
+              value={formData?.prefix}
+              disabled={PhotoNumber ? true : false}
+              name="prefix"
+              onChange={formHandler}
+              className="w-full border-slate-300 dark:bg-slate-700 dark:text-white border px-2 py-3"
+            />
+            <label htmlFor="email" className="dark:text-white">Prefix</label>
+          </span>
+          
+          <span className="p-float-label mt-7 w-96">
+            <InputText
+              id="number"
+              value={formData?.number}    
+              name="number"
+              disabled={PhotoNumber ? true : false}
+              onChange={formHandler}
+              className="w-full border-slate-300 dark:bg-slate-700 dark:text-white border px-2 py-3"
+            />
+            <label htmlFor="number" className="dark:text-white">Serial Number</label>
+          </span>
+      
+
+      {PhotoNumber === null ? 
+    <Button
+label="Create"
+onClick={confirm1}
+className="bg-green-600 hover:bg-green-700 duration-300 text-white w-full py-3 mt-5"
+/> : 
+      ""
+          // <Button
+          // label="Update"
+          // onClick={confirm2}
+          // className="bg-blue-600 hover:bg-blue-700 duration-300 text-white w-full py-3 mt-5"
+          // />
+        }
+      </div>
+      </div>
+    </>
+  );
+}

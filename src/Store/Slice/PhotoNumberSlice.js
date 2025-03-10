@@ -41,52 +41,54 @@ export const updatePhotoNumber = createAsyncThunk(
   }
 );
 
-export const AdmitCardTemplateSlice = createSlice({
+export const PhotoNumberSlice = createSlice({
   name: "PhotoNumber",
   initialState: {
-    Templates: [],
+    PhotoNumber: null,
     error: null,
     loading: false,
+    message:false
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getPhotoNumberBySchoolId.pending, (state) => {
         state.loading = true;
+        state.message = false;
         state.error = null;
       })
       .addCase(getPhotoNumberBySchoolId.fulfilled, (state, action) => {
-        state.Templates = action.payload;
+        state.PhotoNumber = action.payload;
         state.error = null;
         state.loading = false;
+        state.message = null
       })
       .addCase(getPhotoNumberBySchoolId.rejected, (state, action) => {
         state.loading = false;
-        state.Templates = [];
         state.error = action.payload;
+        state.message = false
       })
-
       .addCase(createPhotoNumber.pending, (state) => {
         state.loading = true;
+        state.message = false;
+        state.error = false;
       })
       .addCase(createPhotoNumber.fulfilled, (state, action) => {
-        state.Templates.push(action.payload.data);
+        state.PhotoNumber = action.payload
         state.error = null;
         state.loading = false;
+        state.message = "Create Successfull";
       })
       .addCase(updatePhotoNumber.pending, (state, action) => {
         state.loading = false;
         state.error = null;
+        state.message = null
       })
       .addCase(updatePhotoNumber.fulfilled, (state, action) => {
-        const index = state.Templates.findIndex(
-          (icard) => icard._id === action.payload.data._id
-        );
-        if (index !== -1) {
-          state.Templates[index] = action.payload.data;
-        }
+        state.PhotoNumber = action.payload
         state.error = null;
         state.loading = false;
+        state.message = "Update Successfull"
       })
       .addCase(updatePhotoNumber.rejected, (state, action) => {
         state.loading = false;
@@ -95,4 +97,4 @@ export const AdmitCardTemplateSlice = createSlice({
   },
 });
 
-export default AdmitCardTemplateSlice.reducer;
+export default PhotoNumberSlice.reducer;
