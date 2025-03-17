@@ -11,6 +11,8 @@ import {
   findlogger,
   updatePartyLogin,
 } from "../Store/Slice/PartySlice";
+import { Dropdown } from "primereact/dropdown";
+import moment from "moment/moment";
 
 export default function ThirdParty({ data }) {
   const [formData, setFormData] = useState();
@@ -32,6 +34,12 @@ export default function ThirdParty({ data }) {
       });
     }
   }, [dispatch, data]);
+
+
+  const Year = [
+    { year: (moment().year()-1)+"-"+moment().year() },
+    { year: moment().year()+"-"+(moment().year() + 1)},
+  ];
 
   const toast = useRef(null);
 
@@ -105,6 +113,7 @@ export default function ThirdParty({ data }) {
       accept: onRegister,
     });
   };
+  
   return (
     <>
       <Toast ref={toast} />
@@ -134,6 +143,22 @@ export default function ThirdParty({ data }) {
         />
         <label htmlFor="email" className="dark:text-white">
           Username id <span className="text-red-500">*</span>
+        </label>
+      </span>
+      <span className="p-float-label mt-7">
+        
+        <Dropdown
+          id="year"
+          options={Year}
+          value={formData?.sessionyear}
+          optionLabel="year"
+          optionValue="year"
+          name="sessionyear"
+          onChange={formHandler}
+          className="w-full  border-slate-300 dark:text-white dark:bg-slate-700 border"
+        />
+        <label htmlFor="email" className="dark:text-white">
+          Acdemic Year <span className="text-red-500">*</span>
         </label>
       </span>
       {formData?.auth ? (

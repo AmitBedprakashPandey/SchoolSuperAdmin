@@ -74,6 +74,7 @@ export const School = createSlice({
       .addCase(getAllSchool.rejected, (state, action) => {
         state.loading = false;
         state.School = [];
+
         state.error = action.payload.error;
       })
       .addCase(getByUserAllSchool.pending, (state) => {

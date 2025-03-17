@@ -20,28 +20,28 @@ export default function School() {
   const { School } = useSelector((state) => state.School);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   useEffect(() => {
     if (!localStorage.getItem("Supertoken")) {
       navigate("/login");
     }
-  }, [navigate]);
-  useEffect(() => {
-    dispatch(getAllSchool()).then((doc) => {
-      if (doc.payload?.response?.status === 403) {
-        localStorage.removeItem("email");
-        localStorage.removeItem("Admintoken");
-        localStorage.removeItem("schoolid");
-        localStorage.removeItem("schoolName");
-        navigate("/login");
-      }
-    });
+    
+    if(School == []){
+      dispatch(getAllSchool()).then((doc) => {
+        if (doc.payload?.response?.status === 403) {
+          localStorage.removeItem("email");
+          localStorage.removeItem("Admintoken");
+          localStorage.removeItem("schoolid");
+          localStorage.removeItem("schoolName");
+          navigate("/login");
+        }
+      })
+    }
   }, [dispatch, navigate]);
 
   const [filters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    "country.name": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    representative: { value: null, matchMode: FilterMatchMode.IN },
     status: { value: null, matchMode: FilterMatchMode.EQUALS },
   });
 
